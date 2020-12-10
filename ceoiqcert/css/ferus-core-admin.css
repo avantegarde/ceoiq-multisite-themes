@@ -1,0 +1,51 @@
+/******************************************************************************/
+/* Admin */
+/******************************************************************************/
+/*--- Admin panel styles ---*/
+.ferus-admin-group {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0 15px 0 0;
+}
+.ferus-admin-group label {
+    display: block;
+    margin: 10px 0 5px 0;
+    padding: 0;
+    font-weight: 600;
+}
+.ferus-admin-group input[type="text"],
+.ferus-admin-group textarea {
+    display: block;
+    width: 100%;
+}
+/*--- Header Content Location ---*/
+#custom-header-content-sortables {
+    margin-top: 20px;
+}
+.custom-content-location {
+    display: block;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.custom-content-location li {
+    display: inline-block;
+    margin: 0;
+    padding: 0 20px 0 0;
+    color: #666666;
+}
+.custom-content-location li input[type=radio] {
+    display: inline-block;
+    margin: 0;
+    vertical-align: middle;
+}
+.custom-content-location li label {
+    display: inline-block;
+    margin: 0;
+    padding: 0 0 0 5px;
+    vertical-align: middle;
+    font-weight: 400;
+}

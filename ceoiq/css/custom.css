@@ -1,0 +1,14 @@
+/*--- Bootstrap Fixes ---*/
+.modal.fade.in,
+.modal.fade.show {
+  opacity: 1;
+}
+.modal-backdrop.fade.show {
+  opacity: .5;
+}
+.modal.fade .modal-dialog {
+  -webkit-transform: translate(0,0);
+  -ms-transform: translate(0,0);
+  -o-transform: translate(0,0);
+  transform: translate(0,0);
+}

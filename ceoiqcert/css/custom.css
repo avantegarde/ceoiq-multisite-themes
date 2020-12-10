@@ -1,0 +1,47 @@
+/*--- Bootstrap Fixes ---*/
+.modal.fade.in,
+.modal.fade.show {
+  opacity: 1;
+}
+.modal-backdrop.fade.show {
+  opacity: .5;
+}
+.modal.fade .modal-dialog {
+  -webkit-transform: translate(0,0);
+  -ms-transform: translate(0,0);
+  -o-transform: translate(0,0);
+  transform: translate(0,0);
+}
+/*--- Accordion ---*/
+.accordion ul.icon-list {
+  display: block;
+  width: 100%;
+}
+.accordion ul.icon-list li:before {
+  position: relative;
+}
+/*--- Calculator List ---*/
+.accordion ul.icon-list.calculators li:before {
+  content: "\f1ec";
+  top: 7px;
+}
+.accordion ul.icon-list.ebooks li:before {
+  content: "\f02d";
+  top: 5px;
+}
+.accordion ul.icon-list.tools li:before {
+  content: "\f080";
+}
+.accordion ul.icon-list.worksheets li:before {
+  content: "\f15c";
+  top: 5px;
+}
+.accordion ul.icon-list.videos li:before {
+  content: "\f03d";
+}
+/*--- Tooltip Fixes ---*/
+/* Hide tooltip on user account page. otherwise it messes up the "edit profile pic" button */
+.uwp_account_page .tooltip.fade.show {
+  pointer-events: none;
+  display: none !important;
+}
