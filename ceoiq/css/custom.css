@@ -12,3 +12,10 @@
   -o-transform: translate(0,0);
   transform: translate(0,0);
 }
+/*--- Hide Header Menu and toolbar on Calculator pages ---*/
+.page-template-page_calculator .site-header .navbar-toggle,
+.page-template-page_calculator .site-header #toolbar,
+.page-template-page_calculator .floating-button,
+.page-template-page_calculator #menu-float {
+  display: none !important;
+}

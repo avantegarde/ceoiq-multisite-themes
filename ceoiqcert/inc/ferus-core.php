@@ -867,11 +867,17 @@ function ceoiq_resources_shortcode($atts, $content = null) {
             }
             // Resource Details
             $r_type = get_field('ceoiq_resource_type');
+            $r_external = get_field('ceoiq_resource_external');
             $r_file = get_field('ceoiq_resource_file');
             $r_desc = get_field('ceoiq_resource_description');
+            if($r_external === 'yes') {
+                $r_url = get_field('ceoiq_resource_url');
+            } else {
+                $r_url = $r_file['url'];
+            }
             ?>
             <li>
-                <a href="<?php echo $r_file['url']; ?>" target="_blank" rel="noopener noreferrer"><?php the_title(); ?></a>
+                <a href="<?php echo $r_url; ?>" target="_blank" rel="noopener noreferrer"><?php the_title(); ?></a>
                 <!-- <p>Type: <?php //echo $r_type; ?></p> -->
                 <p><?php echo $r_desc; ?></p>
             </li>
