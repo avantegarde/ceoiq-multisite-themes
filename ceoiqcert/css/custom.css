@@ -50,3 +50,32 @@
   max-width: 720px;
   width: 100%;
 }
+/*--- Speakers Archive ---*/
+.speakers-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+}
+.speakers-wrap .speaker-item {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+.speakers-wrap .speaker-item article {
+  height: 100%;
+  border: 1px solid #cccccc;
+}
+.speaker-item .speaker-img {
+  display: block;
+  width: 100%;
+  height: 0;
+  padding-bottom: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+.speaker-item .speaker-content {
+  padding: 15px;
+}
+.speaker-item .speaker-name {
+  margin-top: 0;
+}
