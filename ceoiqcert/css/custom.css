@@ -21,22 +21,22 @@
   position: relative;
 }
 /*--- Calculator List ---*/
-.accordion ul.icon-list.calculators li:before {
+.accordion ul.icon-list.calculator li:before {
   content: "\f1ec";
   top: 7px;
 }
-.accordion ul.icon-list.ebooks li:before {
+.accordion ul.icon-list.ebook li:before {
   content: "\f02d";
   top: 5px;
 }
-.accordion ul.icon-list.tools li:before {
+.accordion ul.icon-list.diagnostic li:before {
   content: "\f080";
 }
-.accordion ul.icon-list.worksheets li:before {
+.accordion ul.icon-list.worksheet li:before {
   content: "\f15c";
   top: 5px;
 }
-.accordion ul.icon-list.videos li:before {
+.accordion ul.icon-list.video li:before {
   content: "\f03d";
 }
 /*--- Tooltip Fixes ---*/
@@ -44,4 +44,9 @@
 .uwp_account_page .tooltip.fade.show {
   pointer-events: none;
   display: none !important;
+}
+/*--- Video Modal ---*/
+.video-modal .modal-dialog {
+  max-width: 720px;
+  width: 100%;
 }

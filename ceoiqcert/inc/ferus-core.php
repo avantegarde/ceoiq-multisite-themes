@@ -841,12 +841,14 @@ function ceoiq_resources_shortcode($atts, $content = null) {
     // Code
     $resource_args = array(
         'post_type' => 'resources',
-        'tag' => $group,
+        //'tag' => '',
+        'meta_key' => 'ceoiq_resource_type',
+        'meta_value' => $cat,
         'tax_query' => array(
             array(
                 'taxonomy' => 'resource_cat',
                 'field'    => 'slug',
-                'terms'    => $cat,
+                'terms'    => $group,
             ),
         ),
         'posts_per_page' => -1,
@@ -875,11 +877,38 @@ function ceoiq_resources_shortcode($atts, $content = null) {
             } else {
                 $r_url = $r_file['url'];
             }
+            if($r_type === 'video') {
+                // build video link with popup video
+                $r_video_source = get_field('ceoiq_resource_video_source');
+                $r_video_ID = get_field('ceoiq_resource_video_id');
+                $r_url = '';
+                if ($r_video_source === 'youtube') {
+                    $r_video_url = 'https://www.youtube.com/embed/'.$r_video_ID.'?rel=0&modestbranding=1&showinfo=0';
+                } elseif ($r_video_source === 'vimeo') {
+                    $r_video_url = 'https://player.vimeo.com/video/'.$r_video_ID.'?color=069e24&title=0&byline=0&portrait=0';
+                } else {
+                    $r_video_url = get_field('ceoiq_resource_url');
+                }
+                $resource_link = '<a class="video-toggle" href="" data-toggle="modal" data-target="#video-'.$post->ID.'">'.get_the_title().'</a>';
+            } else {
+                $resource_link = '<a href="'.$r_url.'" target="_blank" rel="noopener noreferrer">'.get_the_title().'</a>';
+            }
             ?>
             <li>
-                <a href="<?php echo $r_url; ?>" target="_blank" rel="noopener noreferrer"><?php the_title(); ?></a>
-                <!-- <p>Type: <?php //echo $r_type; ?></p> -->
+                <?php echo $resource_link; ?>
                 <p><?php echo $r_desc; ?></p>
+                <?php if ($r_type === 'video') : ?>
+                    <div id="video-<?php echo $post->ID ?>" class="modal fade video-modal" tabindex="-1" role="dialog" data-url="<?php echo $r_video_url; ?>">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <iframe id="resource-iframe" src="<?php echo $r_video_url; ?>" width="720" height="480" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                                </div>
+                            </div><!-- /.modal-content -->
+                        </div><!-- /.modal-dialog -->
+                    </div><!-- /.modal -->
+                <?php endif; ?>
             </li>
         <?php endwhile; wp_reset_postdata(); ?>
     <?php else : ?>
@@ -888,6 +917,30 @@ function ceoiq_resources_shortcode($atts, $content = null) {
         </div>
     <?php endif; ?>
     </ul><!-- .resources-wrap -->
+    <?php if($cat === 'video') : ?>
+    <script>
+    // Remove & Replace iframe url to stop video when closing popup
+    jQuery(document).ready(function($) {
+        $('a.video-toggle').click(function(e) {
+            var target = $(this).data('target');
+            var video = $(target).find('iframe');
+            var url = $(target).data('url');
+            showModal(target, video, url);
+        } );
+        function showModal(target, video, url) {
+            $(target).on('show.bs.modal', function() { 
+                $(video).attr('src', url);
+                hideModal(target, video, url);
+            });
+        }
+        function hideModal(target, video, url) {
+            $(target).on('hide.bs.modal', function() { 
+                $(video).attr('src', '');
+            }); 
+        }
+    }); 
+    </script>
+    <?php endif; ?>
     <?php
     restore_current_blog();
     $output = ob_get_clean();

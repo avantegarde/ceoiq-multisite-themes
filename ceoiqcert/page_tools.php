@@ -109,32 +109,32 @@ if($iHeight) {
     <div class="accordion">
         <h3 id="calculators" data-accordion="title"><i class="fa fa-calculator"></i> Calculators</h3>
         <div data-accordion="content">
-            <?php echo do_shortcode('[ceoiq-resources cat="calculators" group="public"]'); ?>
-            <?php echo do_shortcode( '[wlm_ismember]'.'[ceoiq-resources cat="calculators" group="'.$site_slug.'"]'.'[/wlm_ismember]' ); ?>
+            <?php echo do_shortcode('[ceoiq-resources cat="calculator" group="public"]'); ?>
+            <?php echo do_shortcode( '[wlm_ismember]'.'[ceoiq-resources cat="calculator" group="'.$site_slug.'"]'.'[/wlm_ismember]' ); ?>
         </div><!-- END: calculators -->
 
         <h3 id="eBooks" data-accordion="title"><i class="fa fa-book"></i> eBooks</h3>
         <div data-accordion="content">
-            <?php echo do_shortcode('[ceoiq-resources cat="ebooks" group="public"]'); ?>
-            <?php echo do_shortcode( '[wlm_ismember]'.'[ceoiq-resources cat="ebooks" group="'.$site_slug.'"]'.'[/wlm_ismember]' ); ?>
+            <?php echo do_shortcode('[ceoiq-resources cat="ebook" group="public"]'); ?>
+            <?php echo do_shortcode( '[wlm_ismember]'.'[ceoiq-resources cat="ebook" group="'.$site_slug.'"]'.'[/wlm_ismember]' ); ?>
         </div><!-- END: eBooks -->
 
         <h3 id="tools" data-accordion="title"><i class="fa fa-bar-chart-o"></i> Diagnostics & Tools</h3>
         <div data-accordion="content">
-            <?php echo do_shortcode('[ceoiq-resources cat="tools" group="public"]'); ?>
-            <?php echo do_shortcode( '[wlm_ismember]'.'[ceoiq-resources cat="tools" group="'.$site_slug.'"]'.'[/wlm_ismember]' ); ?>
+            <?php echo do_shortcode('[ceoiq-resources cat="diagnostic" group="public"]'); ?>
+            <?php echo do_shortcode( '[wlm_ismember]'.'[ceoiq-resources cat="diagnostic" group="'.$site_slug.'"]'.'[/wlm_ismember]' ); ?>
         </div><!-- END: tools -->
 
         <h3 id="worksheets" data-accordion="title"><i class="fa fa-file-alt"></i> Worksheets</h3>
         <div data-accordion="content">
-            <?php echo do_shortcode('[ceoiq-resources cat="worksheets" group="public"]'); ?>
-            <?php echo do_shortcode( '[wlm_ismember]'.'[ceoiq-resources cat="worksheets" group="'.$site_slug.'"]'.'[/wlm_ismember]' ); ?>
+            <?php echo do_shortcode('[ceoiq-resources cat="worksheet" group="public"]'); ?>
+            <?php echo do_shortcode( '[wlm_ismember]'.'[ceoiq-resources cat="worksheet" group="'.$site_slug.'"]'.'[/wlm_ismember]' ); ?>
         </div><!-- END: worksheets -->
         
         <h3 id="videos" data-accordion="title"><i class="fa fa-video-camera"></i> Videos</h3>
         <div data-accordion="content">
-            <?php echo do_shortcode('[ceoiq-resources cat="videos" group="public"]'); ?>
-            <?php echo do_shortcode( '[wlm_ismember]'.'[ceoiq-resources cat="videos" group="'.$site_slug.'"]'.'[/wlm_ismember]' ); ?>
+            <?php echo do_shortcode('[ceoiq-resources cat="video" group="public"]'); ?>
+            <?php echo do_shortcode( '[wlm_ismember]'.'[ceoiq-resources cat="video" group="'.$site_slug.'"]'.'[/wlm_ismember]' ); ?>
         </div><!-- END: videos -->
 
     </div><!-- .accordion -->
@@ -170,6 +170,7 @@ if($iHeight) {
         <?php dynamic_sidebar( 'page-bottom' ); ?>
     </section>
 <?php endif; ?>
+
 
 <?php
 get_footer();

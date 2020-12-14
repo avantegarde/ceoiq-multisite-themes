@@ -19,3 +19,8 @@
 .page-template-page_calculator #menu-float {
   display: none !important;
 }
+/*--- Video Modal ---*/
+.video-modal .modal-dialog {
+  max-width: 720px;
+  width: 100%;
+}
