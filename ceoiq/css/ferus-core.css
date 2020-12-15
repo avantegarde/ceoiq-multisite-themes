@@ -662,7 +662,8 @@ section.blue .gform_button:active {
 [data-button].arrow:after,
 .button.arrow:after {
   content: "\f054";
-  font-family: "FontAwesome";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
   display: inline-block;
   font-size: 55%;
   margin: 0 0 0 10px;
@@ -680,7 +681,8 @@ section.blue .gform_button:active {
 [data-button].arrow-left:before,
 .button.arrow-left:before {
   content: "\f053";
-  font-family: "FontAwesome";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
   display: inline-block;
   font-size: 55%;
   margin: 0 10px 0 0;
@@ -752,7 +754,8 @@ ul.checkbox li {
 }
 ul.checklist li:before,
 ul.checkbox li:before {
-  font-family: "FontAwesome";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
   display :block;
   float: left;
   font-size: inherit;
@@ -830,7 +833,8 @@ ul.icon-list li:after {
 }
 ul.icon-list li:before {
   content: "\f00c";
-  font-family: "FontAwesome";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
   display: inline-block;
   float: left;
   line-height: inherit;
@@ -838,7 +842,6 @@ ul.icon-list li:before {
   width: 32px;
   font-size: 1.3em;
   line-height: 1.1em;
-  font-weight: 400;
   color: #069e24;
   text-align: center;
   vertical-align: middle;
@@ -860,18 +863,36 @@ ul.icon-list li[data-icon="linkedin"]:before {
   content: "\f0e1";
   line-height: 0.9em;
 }
-ul.icon-list li[data-icon="bed"]:before {
-  content: "\f236";
+ul.icon-list li[data-icon="web"]:before {
+  content: "\f0ac";
 }
-ul.icon-list li[data-icon="bath"]:before {
-  content: "\f2cd";
-  line-height: 0.9em;
+ul.icon-list li[data-icon="file"]:before {
+  content: "\f15c";
 }
-ul.icon-list li[data-icon="car"]:before {
-  content: "\f1b9";
+ul.icon-list li[data-icon="audio"]:before {
+  content: "\f028";
 }
-ul.icon-list li[data-icon="house"]:before {
-  content: "\f015";
+ul.icon-list li[data-icon="cross"]:before {
+  content: "\f00d";
+}
+ul.icon-list li[data-icon="meeting"]:before {
+  content: "\f0c0";
+}
+ul.icon-list li[data-icon="clock"]:before {
+  content: "\f017";
+}
+ul.icon-list li[data-icon="stopwatch"]:before {
+  content: "\f2f2";
+}
+ul.icon-list li[data-icon="pin"]:before {
+  content: "\f3c5";
+}
+ul.icon-list li[data-icon="speaker"]:before {
+  content: "\f21d";
+}
+/*--- File List ---*/
+ul.icon-list.files li:before {
+  content: "\f15c";
 }
 /*--- Leaf List ---*/
 ul.icon-list[data-list="leaf"] {
@@ -1441,7 +1462,8 @@ nav.navbar-default {
 }
 nav.navbar-default #primary > li.menu-item-has-children > a:after {
   content: "\f107";
-  font-family: "FontAwesome";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
   display: inline-block;
   margin-left: 8px;
 }
@@ -3116,7 +3138,8 @@ section#home-services {
 }
 .slick-prev:before,
 .slick-next:before {
-  font-family: "FontAwesome";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
   font-size: 60px;
   color: #cccccc;
 }
@@ -4069,12 +4092,12 @@ article.single-post .entry-footer .tags > a:hover {
 }
 .accordion [data-accordion="title"]:after {
   content: '\f067';
-  font-family: 'FontAwesome';
+  font-family: 'Font Awesome 5 Free';
   display: inline-block;
   float: right;
   margin-left: 10px;
   font-size: 20px;
-  font-weight: bold;
+  font-weight: 900;
   vertical-align: middle;
   color: #686b70;
   transition: all 0.25s ease-in-out;
@@ -4512,8 +4535,8 @@ section.panel .panel-content {
 #sidebar {
   padding-top: 20px;
 }
-#sidebar > section,
-#sidebar > .widget {
+#sidebar section,
+#sidebar .widget {
   margin: 0;
   padding: 15px;
 }
@@ -5634,7 +5657,8 @@ ul.brochures li a:hover {
 }
 ul.brochures li a:after {
   content: "\f019";
-  font-family: "FontAwesome";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
   display: block;
   position: absolute;
   top: 15px;
@@ -5748,8 +5772,9 @@ section.landing-featured-course .img-col a {
   position: relative;
 }
 section.landing-featured-course .img-col a:before {
-  content: "\f01d";
-  font-family: "FontAwesome";
+  content: "\f144";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 400;
   display: block;
   width: 100px;
   height: 100px;

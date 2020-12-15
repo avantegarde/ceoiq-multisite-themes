@@ -46,37 +46,26 @@ get_header();
                                         <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
                                     </h2>
                                     <p class="speaker-title"><?php echo $speaker_title; ?></p>
-                                    <ul>
-                                        <li><?php echo $speaker_website; ?></li>
-                                        <li><?php echo $speaker_email; ?></li>
-                                        <li><?php echo $speaker_phone; ?></li>
+                                    <ul class="icon-list">
+                                        <li data-icon="web"><a href="<?php echo $speaker_website; ?>" target="_blank"><?php echo $speaker_website; ?></a></li>
+                                        <li data-icon="email"><a href="mailto:<?php echo $speaker_email; ?>"><?php echo $speaker_email; ?></a></li>
+                                        <li data-icon="phone"><?php echo $speaker_phone; ?></li>
                                     </ul>
-                                    <h4>Meeting Details</h4>
                                     <?php if ($speaker_meetings) : ?>
-                                        <?php foreach( $speaker_meetings as $meeting ): ?>
-                                            <?php
-                                            $meeting_date = get_field('meeting_date',$meeting);
-                                            $meeting_files = get_field('meeting_files',$meeting);
-                                            ?>
-                                            <ul>
-                                                <li>Meeting Date: <?php echo $meeting_date; ?></li>
-                                                <?php if ($meeting_files) : ?>
-                                                    <?php foreach( $meeting_files as $file ): ?>
-                                                        <?php
-                                                        $m_file = $file['meeting_file'];
-                                                        $f_title = $m_file['title'];
-                                                        $f_url = $m_file['url'];
-                                                        ?>
-                                                        <li>File: <a href="<?php echo $f_url; ?>" target="_blank"><?php echo $f_title; ?></a></li>
-                                                    <?php endforeach; ?>
-                                                <?php endif; ?>
-                                            </ul>
-                                        <?php endforeach; ?>
+                                        <h4>Meetings</h4>
+                                        <ul class="icon-list">
+                                            <?php foreach( $speaker_meetings as $meeting ): ?>
+                                                <?php
+                                                $meeting_date = get_field('meeting_date',$meeting);
+                                                ?>
+                                                <li data-icon="meeting"><?php echo $meeting_date; ?></li>
+                                            <?php endforeach; ?>
+                                        </ul>
                                         <?php wp_reset_postdata(); ?>
                                     <?php endif; ?>
-                                    <div class="speaker-bio">
-                                        <?php the_excerpt(); ?>
-                                    </div>
+                                    <!-- <div class="speaker-bio">
+                                        <?php //the_excerpt(); ?>
+                                    </div> -->
                                     <!-- <a href="<?php the_permalink(); ?>" data-button="arrow">Learn More</a> -->
                                 </div>
                             </article>

@@ -20,7 +20,7 @@ add_filter( 'script_loader_tag', 'my_async_scripts', 10, 3 ); */
 function ferus_core_enqueue_custom_scripts() {
     /* CSS */
     wp_enqueue_style('lato', 'https://fonts.googleapis.com/css?family=Lato:300,400,400i,700,700i');
-    wp_enqueue_style('theme-font-awesome', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+    //wp_enqueue_style('theme-font-awesome', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
     wp_enqueue_style('ferus-core-bootstrap-css', get_template_directory_uri() . '/css/bootstrap.min.css');
     wp_enqueue_style('slick-style', get_template_directory_uri() . '/css/slick.css');
     wp_enqueue_style('slick-theme-style', get_template_directory_uri() . '/css/slick-theme.css');

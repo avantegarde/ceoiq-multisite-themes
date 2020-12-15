@@ -1,3 +1,9 @@
+/*--- Sidebar ---*/
+#sidebar .widget-title {
+  margin: 0 0 15px 0;
+  padding: 0 0 5px 0;
+  border-bottom: 3px solid #069e24;
+}
 /*--- Bootstrap Fixes ---*/
 .modal.fade.in,
 .modal.fade.show {
@@ -78,4 +84,143 @@
 }
 .speaker-item .speaker-name {
   margin-top: 0;
+}
+/*--- Single Speaker ---*/
+.single-speakers .site-content {
+  min-height: 75vh;
+}
+.single-speakers #primary {
+  padding-top: 60px;
+}
+.single-speakers .entry-header {
+  display: block;
+  width: 100%;
+  clear: both;
+}
+.single-speakers .entry-header:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+.single-speakers .entry-header #speaker-img {
+  display: block;
+  width: 250px;
+  height: 300px;
+  margin: 0;
+  padding: 0;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  float: left;
+}
+.single-speakers .entry-header .header-content {
+  display: block;
+  width: calc(100% - 250px);
+  margin: 0;
+  padding: 0 0 0 15px;
+  float: left;
+}
+/* Single Speaker | Meeting Details */
+.meeting-details .meeting-date {
+  display: block;
+  width: 100%;
+  font-size: 18px;
+  line-height: 20px;
+  font-weight: bold;
+  margin: 0 0 10px 0;
+  padding: 10px;
+  border: 1px solid #cccccc;
+  color: #069e24;
+  background: #eaeaea;
+}
+.meeting-details ul.icon-list.files {
+  display: block;
+  width: 100%;
+}
+.meeting-details ul.icon-list.files li.audio:before {
+  content: "\f028";
+  top: 5px;
+}
+.meeting-details ul.icon-list.files li.cross:before {
+  content: "\f00d";
+  top: 5px;
+}
+/*--- Meetings Archive ---*/
+.post-type-archive-meetings .meeting-item {
+  display: block;
+  width: 100%;
+  margin: 0 0 30px 0;
+  clear: both;
+}
+.post-type-archive-meetings .meeting-item:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+.post-type-archive-meetings .meeting-item .meeting-img {
+  display: block;
+  width: 200px;
+  height: 200px;
+  margin: 0;
+  padding: 0;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  float: left;
+}
+.post-type-archive-meetings .meeting-item .meeting-content {
+  display: block;
+  width: calc(100% - 200px);
+  margin: 0;
+  padding: 0 15px 15px 15px;
+  float: left;
+}
+.post-type-archive-meetings .meeting-item .meeting-title {
+  display: block;
+  margin: 0 0 15px 0;
+  padding: 0 0 5px 0;
+  border-bottom: 3px solid #069e24;
+}
+.post-type-archive-meetings .meeting-item .meeting-title a {
+  color: #000000;
+}
+.post-type-archive-meetings .meeting-item .meeting-date {
+  display: block;
+  width: 100%;
+  font-size: 18px;
+  line-height: 20px;
+  font-weight: bold;
+  margin: 0 0 10px 0;
+  padding: 10px;
+  border: 1px solid #cccccc;
+  color: #069e24;
+  background: #eaeaea;
+}
+.post-type-archive-meetings .meeting-item .icon-list {
+  display: block;
+  width: 100%;
+}
+/*--- Single Meeting ---*/
+.single-meetings .site-content {
+  min-height: 75vh;
+}
+.single-meetings #primary {
+  padding-top: 60px;
+}
+/* Single Meeting | Speaker Details */
+.single-meetings #sidebar .featured-speaker {
+  text-align: center;
+}
+.single-meetings #sidebar .featured-speaker .widget-title {
+  text-align: left;
+}
+.single-meetings #sidebar #speaker-img {
+  display: block;
+  width: 200px;
+  height: 225px;
+  margin: 0 auto;
+  padding: 0;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
