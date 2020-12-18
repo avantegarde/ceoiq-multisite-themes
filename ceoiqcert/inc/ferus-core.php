@@ -1322,7 +1322,7 @@ add_shortcode('user-goals', 'user_goals_shortcode');
 /******************************************************************************
  * Add Featured Column to user list
  ******************************************************************************/
-function new_modify_user_table( $column ) {
+function new_modify_user_table($column) {
     $column['featured'] = 'Featured';
     return $column;
 }
@@ -1342,6 +1342,24 @@ function new_modify_user_table_row( $val, $column_name, $user_id ) {
     return $val;
 }
 add_filter( 'manage_users_custom_column', 'new_modify_user_table_row', 10, 3 );
+
+/******************************************************************************
+ * Add Featured Column to speaker list
+ ******************************************************************************/
+add_filter('manage_speakers_posts_columns', function($columns) {
+	return array_merge($columns, ['featured' => 'Featured']);
+});
+
+add_action('manage_speakers_posts_custom_column', function($column_key, $post_id) {
+	if ($column_key == 'featured') {
+		$featured = get_post_meta($post_id, 'featured_speaker', true);
+		if ($featured) {
+			echo '<span class="dashicons dashicons-star-filled"></span>';
+		} else {
+			echo '-';
+		}
+	}
+}, 10, 2);
 
 /******************************************************************************
  * Featured User Shortcode
@@ -1396,3 +1414,63 @@ function featured_user_shortcode($atts, $content = null) {
 }
 
 add_shortcode('featured-user', 'featured_user_shortcode');
+
+/******************************************************************************
+ * Featured Speaker
+ ******************************************************************************/
+function featured_speaker_shortcode($atts, $content = null) {
+    ob_start();
+    // Attributes
+    extract(shortcode_atts(
+            array(
+                'date' => '',
+                'limit' => '1',
+            ), $atts)
+    );
+
+    // Code
+    $meeting_args = array(
+        'post_type' => 'meetings',
+        'meta_key' => 'meeting_date',
+        'meta_value' => $date,
+        'posts_per_page' => '1',
+        'order' => 'DESC'
+    );
+    $meetings_query = new WP_Query($meeting_args); ?>
+    <div class="featured-speaker">
+    <?php if ($meetings_query->have_posts()) : ?>
+        <?php while ( $meetings_query->have_posts() ) : $meetings_query->the_post(); ?>
+            <?php 
+            $meeting_speaker = get_field('meeting_speaker');
+            if ($meeting_speaker) : ?>
+                <?php
+                $speaker_feat_image = wp_get_attachment_image_src( get_post_thumbnail_id($meeting_speaker), 'large' );
+                $speaker_img = $speaker_feat_image?$speaker_feat_image[0]:get_template_directory_uri().'/inc/images/hero.jpg';
+                $speaker_name = get_the_title($meeting_speaker);
+                $speaker_title = get_field('speaker_title', $meeting_speaker);
+                $speaker_website = get_field('speaker_website', $meeting_speaker);
+                $speaker_email = get_field('speaker_email', $meeting_speaker);
+                $speaker_phone = get_field('speaker_phone', $meeting_speaker);
+                ?>
+                <div id="speaker-img" style="background-image:url(<?php echo $image; ?>);"></div>
+                <h4><?php echo $speaker_name; ?></h4>
+                <p class="speaker-title"><?php echo $speaker_title; ?></p>
+                <ul class="icon-list">
+                    <li data-icon="web"><a href="<?php echo $speaker_website; ?>" target="_blank"><?php echo $speaker_website; ?></a></li>
+                    <li data-icon="email"><a href="mailto:<?php echo $speaker_email; ?>"><?php echo $speaker_email; ?></a></li>
+                    <li data-icon="phone"><?php echo $speaker_phone; ?></li>
+                </ul>
+            <?php else : ?>
+                <p>No Featured Speaker.</p>
+            <?php endif; ?>
+        <?php endwhile; wp_reset_postdata(); ?>
+    <?php else : ?>
+        <p>No Featured Speaker.</p>
+    <?php endif; ?>
+    </div>
+    <?php
+    $output = ob_get_clean();
+    return $output;
+}
+
+add_shortcode('featured-speaker', 'featured_speaker_shortcode');

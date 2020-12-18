@@ -125,46 +125,32 @@ if($iHeight) {
               <div class="container">
                   <h2 class="section-title center line">Quick Links</h2>
                   <div class="row">
-                      <div class="col-sm-6 col-md-4 item">
+                      <div class="col-sm-6 col-md-3 item">
                           <div class="inner" data-col="homeservices">
                               <span class="icon"><img src="/wp-content/themes/ceoiq/inc/images/icon-programs.png" width="100"></span>
                               <h2>Meeting Check-In</h2>
                               <a href="<?php echo site_url('/check-in'); ?>" data-button>Check-In Now</a>
                           </div>
                       </div>
-                      <div class="col-sm-6 col-md-4 item">
-                          <div class="inner" data-col="homeservices">
-                              <span class="icon"><img src="/wp-content/themes/ceoiq/inc/images/icon-workshops.png" width="100"></span>
-                              <h2>Meetings</h2>
-                              <a href="<?php echo site_url('/meetings'); ?>/meetings/" data-button>View</a>
-                          </div>
-                      </div>
-                      <div class="col-sm-6 col-md-4 item">
-                          <div class="inner" data-col="homeservices">
-                              <span class="icon"><img src="/wp-content/themes/ceoiq/inc/images/icon-leadership.png" width="100"></span>
-                              <h2>Speakers</h2>
-                              <a href="<?php echo site_url('/speakers'); ?>/speakers/" data-button>View</a>
-                          </div>
-                      </div>
-                      <div class="col-sm-6 col-md-4 item">
-                          <div class="inner" data-col="homeservices">
-                              <span class="icon"><img src="/wp-content/themes/ceoiq/inc/images/icon-advisory.png" width="100"></span>
-                              <h2>Group Roster</h2>
-                              <a href="<?php echo site_url('/group-roster'); ?>/group-roster/" data-button>View</a>
-                          </div>
-                      </div>
-                      <div class="col-sm-6 col-md-4 item">
+                      <div class="col-sm-6 col-md-3 item">
                           <div class="inner" data-col="homeservices">
                               <span class="icon"><img src="/wp-content/themes/ceoiq/inc/images/icon-tools.png" width="100"></span>
                               <h2>Tools & Resources</h2>
-                              <a href="<?php echo site_url('/tools-resources'); ?>/tools-resources/" data-button>Learn More</a>
+                              <a href="<?php echo site_url('/tools-resources'); ?>" data-button>Learn More</a>
                           </div>
                       </div>
-                      <div class="col-sm-6 col-md-4 item">
+                      <div class="col-sm-6 col-md-3 item">
                           <div class="inner" data-col="homeservices">
-                              <span class="icon"><img src="/wp-content/themes/ceoiq/inc/images/icon-coaching.png" width="100"></span>
-                              <h2>Your Profile</h2>
-                              <a href="<?php echo site_url('/account'); ?>/account/" data-button>Edit</a>
+                              <span class="icon"><img src="/wp-content/themes/ceoiq/inc/images/icon-advisory.png" width="100"></span>
+                              <h2>Group Roster</h2>
+                              <a href="<?php echo site_url('/group-roster'); ?>" data-button>View</a>
+                          </div>
+                      </div>
+                      <div class="col-sm-6 col-md-3 item">
+                          <div class="inner" data-col="homeservices">
+                              <span class="icon"><img src="/wp-content/themes/ceoiq/inc/images/icon-workshops.png" width="100"></span>
+                              <h2>Articles</h2>
+                              <a href="<?php echo site_url('/articles'); ?>" data-button>View</a>
                           </div>
                       </div>
 
@@ -177,14 +163,31 @@ if($iHeight) {
                   <h2 class="section-title center line">Meetings</h2>
                   <div class="row">
                     <div class="col-md-6">
-                      <h3>Upcoming Meeting</h3>
-                        <!-- Material theme -->
-                        <!-- <div class="auto-jsCalendar material-theme custom-green"></div> -->
-                        <div id="cert-calendar" class="material-theme custom-green"></div>
-                        Selected Day click : <br><input id="dayclick">
+                      <h3>Meeting Calendar</h3>
+                      <!-- Material theme -->
+                      <!-- <div class="auto-jsCalendar material-theme custom-green"></div> -->
+                      <div id="cert-calendar" class="material-theme custom-green"></div>
+                      <!-- Selected Day click : <br><input id="dayclick"> -->
+                        <?php 
+                        $meetings_args = array(
+                          'post_type' => 'meetings',
+                          'posts_per_page' => -1,
+                          'order' => 'DESC'
+                        );
+                        $meeting_dates = array();
+                        $meetings_query = new WP_Query($meetings_args);
+                        if ($meetings_query->have_posts()) :
+                          while ( $meetings_query->have_posts() ) : $meetings_query->the_post();
+                            $meeting_date = get_field('meeting_date');
+                            $newDate = date_create($meeting_date);
+                            $f_date = date_format($newDate, 'M-d-Y');
+                            $cal_date = date_format($newDate, 'd/m/Y');
+                            array_push($meeting_dates, $cal_date);
+                          endwhile; wp_reset_postdata();
+                        endif;?>
                     </div>
                     <div class="col-md-6">
-                      <h3>Featured Speaker</h3>
+                      <h3>Upcoming Meeting</h3>
                     </div>
                   </div>
               </div>
@@ -192,10 +195,15 @@ if($iHeight) {
 
           <section id="dashboard-featured-user" class="narrow">
               <div class="container">
-                  <h2 class="section-title center line">Featured User</h2>
+                  <h2 class="section-title center line">Monthly Spotlight</h2>
                   <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-6">
+                      <h3>Featured Member</h3>
                       <?php echo do_shortcode('[featured-user]'); ?>
+                    </div>
+                    <div class="col-md-6">
+                      <h3>Featured Speaker</h3>
+                      <?php echo do_shortcode('[featured-speaker]'); ?>
                     </div>
                   </div>
               </div>
@@ -274,29 +282,23 @@ jQuery(document).ready(function ($) {
      */
     var calendarEl = document.getElementById("cert-calendar");
     var certCalendar = jsCalendar.new(calendarEl);
-    var calEvents = [
-        "24/12/2020",
-        "25/12/2020",
-        "31/12/2020",
-        "01/01/2021",
-        "02/01/2021"
-    ];
+    var calEvents = <?php echo json_encode($meeting_dates); ?>;
     // Add events
     certCalendar.select(calEvents);
     // Calendar Click Events
-    var inputA = document.getElementById("dayclick");
+    //var inputA = document.getElementById("dayclick");
     certCalendar.onDateClick(function(event, date){
-        //console.log(event.path[0]);
-        //console.log(date);
+        let meeting_info = document.querySelectorAll('.meeting-info');
+        for(i=0;i<meeting_info.length;i++){
+          meeting_info[i].style.display = 'none';
+        }
         if(event.path[0].classList.contains('jsCalendar-selected')) {
-          console.log('SELECTED DATE PICKED!');
-          console.log(date);
-          //const d = new Date(2010, 7, 5);
           const ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(date);
           const mo = new Intl.DateTimeFormat('en', { month: 'short' }).format(date);
           const da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(date);
-          //console.log(`${da}-${mo}-${ye}`);
-          inputA.value = mo+'-'+da+'-'+ye;
+          let selected_meeting = document.getElementById(mo+'-'+da+'-'+ye);
+          selected_meeting.style.display = 'block';
+          //inputA.value = mo+'-'+da+'-'+ye;
         }
     });
 });// END document.ready
