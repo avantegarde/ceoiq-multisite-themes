@@ -12,6 +12,7 @@
 get_header();
 
 $user = wp_get_current_user();
+$user_ID = $user->ID;
 $user_name = $user->display_name;
 ?>
 
@@ -86,8 +87,43 @@ if($iHeight) {
 
             <?php // the_content(); ?>
 
+            <section id="dashboard-goals" class="dashboard-goals blank">
+              <div class="container">
+                  <h2 class="section-title center line">Your Goals</h2>
+                  <div class="db-slideset-goals">
+                    <?php 
+                    $business_goal1 = uwp_get_usermeta($user_ID, 'business_goal_1');
+                    $business_goal2 = uwp_get_usermeta($user_ID, 'business_goal_2');
+                    $business_goal3 = uwp_get_usermeta($user_ID, 'business_goal_3');
+                    $personal_goal1 = uwp_get_usermeta($user_ID, 'personal_goal_1');
+                    $personal_goal2 = uwp_get_usermeta($user_ID, 'personal_goal_2');
+                    $personal_goal3 = uwp_get_usermeta($user_ID, 'personal_goal_3');
+                    $health_goal1 = uwp_get_usermeta($user_ID, 'health_goal_1');
+                    $health_goal2 = uwp_get_usermeta($user_ID, 'health_goal_2');
+                    $health_goal3 = uwp_get_usermeta($user_ID, 'health_goal_3');
+                    $user_goals = array(
+                      'Business Goal 1' => $business_goal1,
+                      'Business Goal 2' => $business_goal2,
+                      'Business Goal 3' => $business_goal3,
+                      'Personal Goal 1' => $personal_goal1,
+                      'Personal Goal 2' => $personal_goal2,
+                      'Personal Goal 3' => $personal_goal3,
+                      'Health Goal 1' => $health_goal1,
+                      'Health Goal 2' => $health_goal2,
+                      'Health Goal 3' => $health_goal3
+                    );
+                    foreach($user_goals as $name => $goal){
+                      echo '<div><div class="goal-item"><h4>'.$name.'</h4><p>'.$goal.'</p></div></div>';
+                    }
+                    ?>
+                  </div><!-- .db-slideset-goals -->
+              </div><!-- .container -->
+            </section>
+
+            <!-- Dashboard Grid -->
             <section id="dashboard-grid" class="services-grid blank">
               <div class="container">
+                  <h2 class="section-title center line">Quick Links</h2>
                   <div class="row">
                       <div class="col-sm-6 col-md-4 item">
                           <div class="inner" data-col="homeservices">
@@ -136,11 +172,41 @@ if($iHeight) {
               </div><!-- .container -->
           </section>
 
+          <section id="dashboard-meetings" class="narrow">
+              <div class="container">
+                  <h2 class="section-title center line">Meetings</h2>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <h3>Upcoming Meeting</h3>
+                        <!-- Material theme -->
+                        <!-- <div class="auto-jsCalendar material-theme custom-green"></div> -->
+                        <div id="cert-calendar" class="material-theme custom-green"></div>
+                        Selected Day click : <br><input id="dayclick">
+                    </div>
+                    <div class="col-md-6">
+                      <h3>Featured Speaker</h3>
+                    </div>
+                  </div>
+              </div>
+          </section>
+
+          <section id="dashboard-featured-user" class="narrow">
+              <div class="container">
+                  <h2 class="section-title center line">Featured User</h2>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <?php echo do_shortcode('[featured-user]'); ?>
+                    </div>
+                  </div>
+              </div>
+          </section>
+
           <section id="featured-articles" class="narrow">
               <div class="container center">
-                  <h3 class="section-title">Featured Articles</h3>
+                  <h2 class="section-title center line">Featured Articles</h2>
               </div>
-              <?php echo do_shortcode('[must-reads posts="4" category="featured"]'); ?>
+              <?php // echo do_shortcode('[must-reads posts="4" category="featured"]'); ?>
+              <?php echo do_shortcode('[must-reads posts="4" category=""]'); ?>
           </section>
 
             
@@ -165,307 +231,74 @@ if($iHeight) {
 
 
 <style>
-section#primary {
-  padding: 0;
-  min-height: 100vh;
-}
-/*--- Tabs ---*/
-.tabs-wrap {
+.db-slideset-goals .goal-item {
   display: block;
-  width: 100%;
-  max-width: 100%;
-  margin: 0;
-  padding: 0;
-}
-.tabs-wrap:after {
-  content: "";
-  display: block;
-  clear:both;
-}
-.tabs-wrap ul.tabs-menu {
-  display: block;
-  float: left;
-  clear: both;
-  list-style: none;
-  padding: 15px 15px 0px 15px;
-  margin: 0;
-  margin-bottom: -1px !important;
-  width: 100%;
-}
-.tabs-wrap .tabs-menu li {
-  line-height: 50px;
-  float: left;
-  padding: 0 !important;
-  margin-right: 10px;
-  background-color: #eaeaea;
-  border: 1px solid #cccccc;
-  border-bottom: 1px solid transparent;
-  transition: all 0.3s ease-in-out;
-  -moz-transition: all 0.3s ease-in-out;
-  -webkit-transition: all 0.3s ease-in-out;
-}
-.tabs-menu li:hover {
-  background-color: #ffffff;
-}
-.tabs-menu li.current {
-  position: relative;
-  background-color: #fff;
-  border-bottom: 1px solid #fff;
-  z-index: 5;
-}
-.tabs-menu li a {
-  padding: 15px 20px;
-  text-decoration: none; 
-}
-.tabs-menu li:hover a,
-.tabs-menu li.current a {
-  color: #000000;
-}
-.tabs-wrap .tab-content {
-  border: 1px solid #d4d4d1;
-  background-color: #fff;
-  float: left;
-  margin-bottom: 20px;
-  width: 100%;
-}
-.tabs-wrap .tab-content > div {
-  padding: 30px 20px;
-  display: none;
-}
-.tabs-wrap .tab-content > div > * {
-  margin-top: 0;
-}
-.tab-title {
-  display: block;
-  font-size: 32px;
-  line-height: 34px;
-  font-weight: bold;
-  text-align: center;
-  margin: 0 0 20px 0;
-  padding: 0 0 10px 0;
-  border-bottom: 3px solid #069e24;
-  color: #000000;
-}
-@media screen and (max-width: 600px) {
-  .tabs-menu li {
-    width: 100%;
-    max-width: 100%;
-  }
-  .tabs-menu li a {
-    width: 100%;
-    display: block;
-    line-height: 2;
-  }
-}
-@media screen and (max-width: 500px) {
-  .tabs-menu li {
-    width: 100%;
-  }
-}
-/*--- Checkin Form ---*/
-ul.gform_fields > li > label {
-  display: block;
-  width: 100%;
-  font-size: 24px;
-  line-height: 26px;
-  font-weight: bold;
-  margin: 0 0 10px 0;
-  padding: 10px;
-  border: 1px solid #cccccc;
-  color: #069e24;
-  background: #eaeaea;
-}
-.gfield.feelings ul.gfield_radio {
-  display: block;
-  margin: 0;
-  padding: 0;
-}
-.gfield.feelings ul.gfield_radio li {
-  display: inline-block;
-  margin: 0;
-  padding: 0;
-}
-.gfield.feelings ul.gfield_radio li input {
-  display: none;
-}
-.gfield.feelings ul.gfield_radio li label {
-  text-align: center;
-  padding: 5px;
-}
-.gfield.feelings ul.gfield_radio li label img {
-  display: block;
-  width: 100%;
-  height: auto;
-  opacity: 0.25;
-  transition: all 0.3s ease-in-out;
-  -webkit-transition: all 0.3s ease-in-out;
-}
-.gfield.feelings ul.gfield_radio li input:checked+label img,
-.gfield.feelings ul.gfield_radio li label:hover img {
-  opacity: 1;
-}
-.gfield.feelings ul.gfield_radio li label span {
-  display: block;
-}
-form .gform_footer {
-  text-align: center;
-}
-.gform_wrapper .gform_footer input.gform_button {
-  font-size: 125% !important;
-}
-/*--- Results Slider NAV ---*/
-.checkin-results-nav {
-  width: 250px;
-  margin: auto;
-}
-.checkin-results-nav h3 {
-  text-align: center;
-}
-/*----------------------*/
-/*--- Results Slider ---*/
-/*----------------------*/
-.checkin-results-slider .entries-slide > div {
-  display: block;
-  margin-left: 20px;
-  border-bottom: 1px solid #cccccc;
-}
-/* Emote Entry */
-.checkin-results-slider .qid-3 > p,
-.checkin-results-slider .qid-4 > p,
-.checkin-results-slider .qid-5 > p {
-  display: block;
-  width: 50px;
-  font-weight: bold;
-  text-align: center;
-}
-/* Entry Name */
-.checkin-results-slider .entries-slide .qid-17 {
-  margin-left: 0;
-  border-bottom: none;
-}
-.checkin-results-slider .qid-17 h4 {
-  display: none;
-}
-.checkin-results-slider .qid-17 p {
-  display: block;
-  font-size: 24px;
-  line-height: 26px;
-  font-weight: bold;
-  margin: 10px 0;
-  padding: 10px;
-  border: 1px solid #cccccc;
-  color: #069e24;
-  background: #eaeaea;
-}
-/*--------------------*/
-/*--- Member Goals ---*/
-/*--------------------*/
-.users-goals-wrap .member-goals {
-  display: block;
-  width: 100%;
-  margin: 0;
-  padding: 0 0 30px 0;
-}
-.users-goals-wrap .member-goals .member-header {
-  display: block;
-  width: 100%;
-  margin: 0;
-  padding: 0 0 10px 0;
-  clear: both;
-}
-.users-goals-wrap .member-goals .member-header:after {
-  content: "";
-  display: block;
-  clear: both;
-}
-.users-goals-wrap .member-goals img.avatar {
-  display: block;
-  width: 96px;
-  height: 96px;
-  float: left;
-  border: 1px solid #cccccc;
-  background: #eaeaea;
-}
-.users-goals-wrap .member-goals .member-title {
-  display: block;
-  width: calc(100% - 96px);
-  float: left;
-  font-size: 24px;
-  line-height: 26px;
-  font-weight: bold;
-  margin: 0;
-  padding: 10px;
-  border: 1px solid #cccccc;
-  border-left: none;
-  color: #069e24;
-  background: #eaeaea;
-}
-.users-goals-wrap .member-goals > p {
-  display: block;
-  width: 100%;
-  margin: 0 0 10px 0;
-  padding: 0 0 10px 0;
-  border-bottom: 1px solid #cccccc;
+  padding: 15px;
 }
 </style>
 <script>
 jQuery(document).ready(function ($) {
     /**
-     * Entry Results Slider Settings
+     * Slideset Goals
      */
-    function getSliderSettings(){
-      return {
-        infinite: true,
+    $('.db-slideset-goals').slick({
         dots: true,
         arrows: false,
-        autoplay: false,
-        speed: 1000,
-        autoplaySpeed: 4000,
-        fade: false,
-        adaptiveHeight: true,
-        asNavFor: '.checkin-results-nav'
-      }
-    }
-    /**
-     * Entry Results Month Controller Settings
-     */
-    function getSliderNavSettings(){
-      return {
         infinite: true,
-        dots: true,
-        arrows: false,
-        autoplay: false,
-        speed: 1000,
-        autoplaySpeed: 4000,
-        fade: false,
-        //adaptiveHeight: true,
-        asNavFor: '.checkin-results-slider',
-      }
-    }
-    /**
-     * Tabs
-     */
-    $(".tabs-menu a").click(function(event) {
-        event.preventDefault();
-        $(this).parent().addClass("current");
-        $(this).parent().siblings().removeClass("current");
-        var tab = $(this).attr("href");
-        $(".tab-content > div").not(tab).css("display", "none");
-        $(tab).fadeIn();
-        // re-initialize results sliders
-        $('.checkin-results-slider').slick('unslick');
-        $('.checkin-results-nav').slick('unslick');
-        $('.checkin-results-slider').slick(getSliderSettings());
-        $('.checkin-results-nav').slick(getSliderNavSettings());
+        speed: 800,
+        slidesToShow: 3,
+        slidesToScroll: 3,
+        autoplay: true,
+        autoplaySpeed: 8000,
+        responsive: [
+            {
+                breakpoint: 991,
+                settings: {
+                    speed: 300,
+                    slidesToShow: 2,
+                    slidesToScroll: 1
+                }
+            },
+            {
+                breakpoint: 650,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1
+                }
+            }
+        ]
     });
+
     /**
-     * Inititalize Results Slider
+     * Calendar with events highlighted
      */
-    $('.checkin-results-slider').slick(getSliderSettings());
-    /**
-     * Inititalize Results Month Controller
-     */
-    $('.checkin-results-nav').slick(getSliderNavSettings());
+    var calendarEl = document.getElementById("cert-calendar");
+    var certCalendar = jsCalendar.new(calendarEl);
+    var calEvents = [
+        "24/12/2020",
+        "25/12/2020",
+        "31/12/2020",
+        "01/01/2021",
+        "02/01/2021"
+    ];
+    // Add events
+    certCalendar.select(calEvents);
+    // Calendar Click Events
+    var inputA = document.getElementById("dayclick");
+    certCalendar.onDateClick(function(event, date){
+        //console.log(event.path[0]);
+        //console.log(date);
+        if(event.path[0].classList.contains('jsCalendar-selected')) {
+          console.log('SELECTED DATE PICKED!');
+          console.log(date);
+          //const d = new Date(2010, 7, 5);
+          const ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(date);
+          const mo = new Intl.DateTimeFormat('en', { month: 'short' }).format(date);
+          const da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(date);
+          //console.log(`${da}-${mo}-${ye}`);
+          inputA.value = mo+'-'+da+'-'+ye;
+        }
+    });
 });// END document.ready
 </script>
 

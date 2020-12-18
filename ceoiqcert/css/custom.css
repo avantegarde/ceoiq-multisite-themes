@@ -1,3 +1,10 @@
+/*--- Section Line Title ---*/
+.section-title.line {
+  display: block;
+  margin: 0 0 15px 0;
+  padding: 0 0 5px 0;
+  border-bottom: 3px solid #069e24;
+}
 /*--- Sidebar ---*/
 #sidebar .widget-title {
   margin: 0 0 15px 0;
@@ -25,6 +32,45 @@
 }
 .accordion ul.icon-list li:before {
   position: relative;
+}
+/*--- Dashboard Calendar ---*/
+.jsCalendar * {
+  display: block;
+  box-sizing: border-box !important;
+}
+.jsCalendar tbody td,
+.jsCalendar thead .jsCalendar-week-days th {
+  width: calc(100%/7 - 4px) !important;
+}
+.jsCalendar tbody td.jsCalendar-selected {
+  height: 36px !important;
+  line-height:36px !important;
+}
+.jsCalendar.custom-green tbody td.jsCalendar-current {
+  background-color: #069e24;
+}
+.jsCalendar.custom-green *::selection {
+  background: #069e24;
+}
+.jsCalendar.custom-green *::-moz-selection {
+  background: #069e24;
+}
+.jsCalendar.material-theme.custom-green thead {
+  background-color: #069e24;
+}
+.jsCalendar.material-theme.custom-green thead .jsCalendar-nav-left:hover,
+.jsCalendar.material-theme.custom-green thead .jsCalendar-nav-right:hover {
+  background-color: #069e24;
+}
+.jsCalendar.classic-theme.custom-green thead {
+  background-color: #069e24;
+}
+.jsCalendar.classic-theme.custom-green thead .jsCalendar-nav-left:hover,
+.jsCalendar.classic-theme.custom-green thead .jsCalendar-nav-right:hover {
+  background-color: #069e24;
+}
+#cert-calendar .jsCalendar-selected {
+  border-color: #069e24;
 }
 /*--- Calculator List ---*/
 .accordion ul.icon-list.calculator li:before {

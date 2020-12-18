@@ -34,6 +34,10 @@ function ferus_core_enqueue_custom_scripts() {
         wp_enqueue_style('KJE', get_template_directory_uri() . '/css/KJE.css');
         wp_enqueue_style('KJE-specific', get_template_directory_uri() . '/css/KJESiteSpecific.css');
     }
+    if ( is_page_template( 'page_dashboard.php' ) ) {
+        wp_enqueue_script('jscalendar', get_template_directory_uri() . '/js/jsCalendar.min.js', array(), 1.0, true);
+        wp_enqueue_style('jscalendar', get_template_directory_uri() . '/css/jsCalendar.min.css');
+    }
     /* JS */
     //wp_enqueue_script('ferus-core-bootstrap-js', get_template_directory_uri() . '/js/bootstrap.min.js', array('jquery'), 1.0, true);
     wp_enqueue_script('ferus-core-slick', get_template_directory_uri() . '/js/slick.min.js', array('jquery'), 1.0, true);
@@ -1314,3 +1318,81 @@ function user_goals_shortcode($atts, $content = null) {
 }
 
 add_shortcode('user-goals', 'user_goals_shortcode');
+
+/******************************************************************************
+ * Add Featured Column to user list
+ ******************************************************************************/
+function new_modify_user_table( $column ) {
+    $column['featured'] = 'Featured';
+    return $column;
+}
+add_filter( 'manage_users_columns', 'new_modify_user_table' );
+
+function new_modify_user_table_row( $val, $column_name, $user_id ) {
+    switch ($column_name) {
+        case 'featured' :
+            $featured = get_the_author_meta('featured_user', $user_id);
+            if($featured === '1'){
+                return '<span class="dashicons dashicons-star-filled"></span>';
+            } else {
+                return '-';
+            }
+        default:
+    }
+    return $val;
+}
+add_filter( 'manage_users_custom_column', 'new_modify_user_table_row', 10, 3 );
+
+/******************************************************************************
+ * Featured User Shortcode
+ ******************************************************************************/
+function featured_user_shortcode($atts, $content = null) {
+    ob_start();
+    // Attributes
+    extract(shortcode_atts(
+            array(
+                //'role' => 'subscriber',
+                'limit' => '1',
+            ), $atts)
+    );
+
+    // Code
+    $args_users = array(
+        //'role'           => $role,
+        'meta_key' => 'featured_user',
+        'meta_value' => '1',
+        'posts_per_page' => $limit,
+        'order'          => 'ASC'
+    ); 
+    $users = get_users($args_users); 
+    if ($users) : ?>
+        <div class="featured-member">
+            <?php foreach($users as $user) :
+                //var_dump($user);
+                $user_ID = $user->ID;
+                $user_name = $user->display_name;
+                $first_name = get_user_meta($user_ID, 'first_name', true);  
+                $last_name = get_user_meta($user_ID, 'last_name', true);
+                $profile_pic = get_avatar($user_ID, '150', '150');
+                $registered_date = date_create($user->user_registered);
+                $r_date = date_format($registered_date,"M - Y");
+            ?>
+            <div class="profile-img">
+                <?php echo $profile_pic; ?>
+            </div>
+            <div class="member-details">
+                <h3 class="member-title"><?php echo $first_name; ?>, <?php echo $last_name; ?></h3>
+                <p>Member since <strong><?php echo $r_date; ?></srong></p>
+                <a href="/group-roster/" data-button="arrow">Learn More</a>
+            </div>
+
+            <?php endforeach; ?>
+        </div><!-- .users-goals-wrap -->
+    <?php else : ?>
+        <p>Sorry! No Featured User.</p>
+    <?php endif;
+    $output = ob_get_clean();
+    return $output;
+}
+
+add_shortcode('featured-user', 'featured_user_shortcode');
