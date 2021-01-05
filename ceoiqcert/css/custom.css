@@ -33,6 +33,15 @@
 .accordion ul.icon-list li:before {
   position: relative;
 }
+/*--- Dashboard ---*/
+.page-template-page_dashboard #page section {
+  padding-top: 0px;
+}
+@media screen and (max-width: 600px) {
+  .dashboard-title {
+    text-align: center;
+  }
+}
 /*--- Dashboard Calendar ---*/
 .jsCalendar * {
   display: block;
@@ -70,7 +79,108 @@
   background-color: #069e24;
 }
 #cert-calendar .jsCalendar-selected {
-  border-color: #069e24;
+  border-color: #613d89;
+  line-height: 32px !important;
+}
+/*--- Dashboard Upcoming Meeting ---*/
+.upcoming-meeting .meeting-date {
+  display: block;
+  width: 100%;
+  font-size: 18px;
+  line-height: 20px;
+  font-weight: bold;
+  margin: 0 0 10px 0;
+  padding: 10px;
+  border: 1px solid #cccccc;
+  color: #069e24;
+  background: #eaeaea;
+}
+/*--- Dashboard Featured Member ---*/
+.featured-member {
+  display: flex;
+  align-items: center;
+}
+.featured-member .profile-img {
+  display: block;
+  width: 150px;
+  margin: 0;
+  padding: 0;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+.featured-member .profile-img img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0;
+  padding: 0;
+}
+.featured-member .member-details {
+  display: block;
+  width: calc(100% - 150px);
+  padding-left: 15px;
+}
+.featured-member .member-details .member-title {
+  margin-top: 0;
+}
+.featured-member .member-details .member-title span {
+  display: inline-block;
+}
+@media screen and (max-width: 600px) {
+  .featured-member {
+    flex-wrap: wrap;
+    text-align: center;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #cccccc;
+  }
+  .featured-member .profile-img {
+    margin: 0 auto 15px auto;
+  }
+  .featured-member .member-details {
+    width: 100%;
+  }
+}
+/*--- Dashboard Featured Speaker ---*/
+.sc-featured-speaker {
+  display: flex;
+  align-items: center;
+}
+.sc-featured-speaker #speaker-img {
+  display: block;
+  width: 200px;
+  height: 225px;
+  margin: 0;
+  padding: 0;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+.sc-featured-speaker .speaker-details {
+  display: block;
+  width: calc(100% - 200px);
+  padding-left: 15px;
+}
+.sc-featured-speaker .speaker-details .spaker-name {
+  margin-top: 0;
+}
+.sc-featured-speaker .speaker-details ul.icon-list {
+  margin-bottom: 0 !important;
+}
+.sc-featured-speaker .speaker-details .icon-list > li:last-of-type {
+  margin-bottom: 0;
+}
+@media screen and (max-width: 600px) {
+  .sc-featured-speaker {
+    flex-wrap: wrap;
+    text-align: center;
+  }
+  .sc-featured-speaker #speaker-img {
+    margin: 0 auto 15px auto;
+  }
+  .sc-featured-speaker .speaker-details {
+    width: 100%;
+  }
 }
 /*--- Calculator List ---*/
 .accordion ul.icon-list.calculator li:before {

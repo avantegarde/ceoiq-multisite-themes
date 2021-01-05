@@ -1399,7 +1399,7 @@ function featured_user_shortcode($atts, $content = null) {
                 <?php echo $profile_pic; ?>
             </div>
             <div class="member-details">
-                <h3 class="member-title"><?php echo $first_name; ?>, <?php echo $last_name; ?></h3>
+                <h3 class="member-title"><span><?php echo $first_name; ?>,</span> <span><?php echo $last_name; ?></span></h3>
                 <p>Member since <strong><?php echo $r_date; ?></srong></p>
                 <a href="/group-roster/" data-button="arrow">Learn More</a>
             </div>
@@ -1429,40 +1429,36 @@ function featured_speaker_shortcode($atts, $content = null) {
     );
 
     // Code
-    $meeting_args = array(
-        'post_type' => 'meetings',
-        'meta_key' => 'meeting_date',
-        'meta_value' => $date,
+    $speaker_args = array(
+        'post_type' => 'speakers',
+        'meta_key' => 'featured_speaker',
+        'meta_value' => '1',
         'posts_per_page' => '1',
         'order' => 'DESC'
     );
-    $meetings_query = new WP_Query($meeting_args); ?>
-    <div class="featured-speaker">
-    <?php if ($meetings_query->have_posts()) : ?>
-        <?php while ( $meetings_query->have_posts() ) : $meetings_query->the_post(); ?>
+    $speaker_query = new WP_Query($speaker_args); ?>
+    <div class="sc-featured-speaker">
+    <?php if ($speaker_query->have_posts()) : ?>
+        <?php while ( $speaker_query->have_posts() ) : $speaker_query->the_post(); ?>
             <?php 
-            $meeting_speaker = get_field('meeting_speaker');
-            if ($meeting_speaker) : ?>
-                <?php
-                $speaker_feat_image = wp_get_attachment_image_src( get_post_thumbnail_id($meeting_speaker), 'large' );
-                $speaker_img = $speaker_feat_image?$speaker_feat_image[0]:get_template_directory_uri().'/inc/images/hero.jpg';
-                $speaker_name = get_the_title($meeting_speaker);
-                $speaker_title = get_field('speaker_title', $meeting_speaker);
-                $speaker_website = get_field('speaker_website', $meeting_speaker);
-                $speaker_email = get_field('speaker_email', $meeting_speaker);
-                $speaker_phone = get_field('speaker_phone', $meeting_speaker);
-                ?>
-                <div id="speaker-img" style="background-image:url(<?php echo $image; ?>);"></div>
-                <h4><?php echo $speaker_name; ?></h4>
+            $feat_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'large' );
+            $image = $feat_image?$feat_image[0]:get_template_directory_uri().'/inc/images/hero.jpg';
+            $speaker_title = get_field('speaker_title');
+            $speaker_website = get_field('speaker_website');
+            $speaker_email = get_field('speaker_email');
+            $speaker_phone = get_field('speaker_phone');
+            $speaker_meetings = get_field('speaker_meetings');
+            ?>
+            <div id="speaker-img" style="background-image:url(<?php echo $image; ?>);"></div>
+            <div class="speaker-details">
+                <h4 class="spaker-name"><?php the_title(); ?></h4>
                 <p class="speaker-title"><?php echo $speaker_title; ?></p>
                 <ul class="icon-list">
                     <li data-icon="web"><a href="<?php echo $speaker_website; ?>" target="_blank"><?php echo $speaker_website; ?></a></li>
                     <li data-icon="email"><a href="mailto:<?php echo $speaker_email; ?>"><?php echo $speaker_email; ?></a></li>
                     <li data-icon="phone"><?php echo $speaker_phone; ?></li>
                 </ul>
-            <?php else : ?>
-                <p>No Featured Speaker.</p>
-            <?php endif; ?>
+            </div>
         <?php endwhile; wp_reset_postdata(); ?>
     <?php else : ?>
         <p>No Featured Speaker.</p>
@@ -1474,3 +1470,79 @@ function featured_speaker_shortcode($atts, $content = null) {
 }
 
 add_shortcode('featured-speaker', 'featured_speaker_shortcode');
+/******************************************************************************
+ * Upcoming Meeting
+ ******************************************************************************/
+function upcoming_meeting_shortcode($atts, $content = null) {
+    ob_start();
+    // Attributes
+    extract(shortcode_atts(
+            array(
+                'date' => '',
+                'limit' => '1',
+            ), $atts)
+    );
+
+    // Code
+    $today = date('Ymd');
+    $meeting_args = array(
+        'post_type' => 'meetings',
+        'meta_query' => array(
+            array(
+                'key' => 'meeting_date',
+                'value' => $today,
+                'compare' => '>',
+                'type' => 'DATE'
+            )
+        ),
+        'posts_per_page' => '1',
+        'orderby' => 'meta_value',
+        'order' => 'ASC'
+    );
+    $meetings_query = new WP_Query($meeting_args); ?>
+    <div class="upcoming-meeting">
+    <?php if ($meetings_query->have_posts()) : ?>
+        <?php while ( $meetings_query->have_posts() ) : $meetings_query->the_post(); ?>
+            <?php
+            $meeting_date = get_field('meeting_date');
+            $meeting_start_time = get_field('meeting_start_time');
+            $meeting_end_time = get_field('meeting_end_time');
+            $meeting_type = get_field('meeting_type');
+            $meeting_url = get_field('meeting_url');
+            $meeting_location = get_field('meeting_location');
+            if($meeting_type === 'local') {
+                $meeting_loc = $meeting_location;
+            } else {
+                $virtual_url = $meeting_url?$meeting_url:'#';
+                $meeting_loc = '<a href="'.$virtual_url.'">Virtual</a>';
+            }
+            $meeting_speaker = get_field('meeting_speaker');
+            ?>
+            <!-- <h4><?php // the_title(); ?></h4> -->
+            <p class="meeting-date">Date: <?php echo $meeting_date; ?></p>
+            <ul class="icon-list">
+                <?php if ($meeting_start_time) : ?>
+                    <li data-icon="clock">Start Time: <?php echo $meeting_start_time; ?></li>
+                <?php endif; ?>
+                <?php if ($meeting_end_time) : ?>
+                    <li data-icon="stopwatch">End Time: <?php echo $meeting_end_time; ?></li>
+                <?php endif; ?>
+                <?php if ($meeting_end_time) : ?>
+                    <li data-icon="pin">Location: <?php echo $meeting_loc; ?></li>
+                <?php endif; ?>
+                <?php if ($meeting_speaker) : ?>
+                    <li data-icon="speaker">Speaker: <?php echo get_the_title($meeting_speaker); ?></li>
+                <?php endif; ?>
+            </ul>
+            <p><a href="<?php echo the_permalink(); ?>" data-button>View Meeting</a></p>
+        <?php endwhile; wp_reset_postdata(); ?>
+    <?php else : ?>
+        <p>No upcoming meetings found.</p>
+    <?php endif; ?>
+    </div>
+    <?php
+    $output = ob_get_clean();
+    return $output;
+}
+
+add_shortcode('upcoming-meeting', 'upcoming_meeting_shortcode');

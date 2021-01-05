@@ -40,16 +40,17 @@ get_header(); ?>
                                         if($meeting_type === 'local') {
                                             $meeting_loc = $meeting_location;
                                         } else {
-                                            $meeting_loc = '<a href="'.$meeting_url.'">Virtual</a>';
+                                            $virtual_url = $meeting_url?$meeting_url:'#';
+                                            $meeting_loc = '<a href="'.$virtual_url.'">Virtual</a>';
                                         }
                                         ?>
                                         <p class="meeting-date">Date: <?php echo $meeting_date; ?></p>
                                         <ul class="icon-list">
                                             <?php if ($meeting_start_time) : ?>
-                                                <li data-icon="stopwatch">Start Time: <?php echo $meeting_start_time; ?></li>
+                                                <li data-icon="clock">Start Time: <?php echo $meeting_start_time; ?></li>
                                             <?php endif; ?>
                                             <?php if ($meeting_end_time) : ?>
-                                                <li data-icon="clock">End Time: <?php echo $meeting_end_time; ?></li>
+                                                <li data-icon="stopwatch">End Time: <?php echo $meeting_end_time; ?></li>
                                             <?php endif; ?>
                                             <?php if ($meeting_end_time) : ?>
                                                 <li data-icon="pin">Location: <?php echo $meeting_loc; ?></li>
