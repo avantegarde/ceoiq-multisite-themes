@@ -107,34 +107,39 @@ if($iHeight) {
     <?php // load_template(get_theme_root() . '/ceoiq/template-parts/content-tools_resources.php'); ?>
 
     <div class="accordion">
-        <h3 id="calculators" data-accordion="title"><i class="fa fa-calculator"></i> Calculators</h3>
+        <h3 id="calculators" data-accordion="title"><i class="fas fa-calculator"></i> Calculators</h3>
         <div data-accordion="content">
-            <?php echo do_shortcode('[ceoiq-resources cat="calculator" group="public"]'); ?>
-            <?php echo do_shortcode( '[wlm_ismember]'.'[ceoiq-resources cat="calculator" group="'.$site_slug.'"]'.'[/wlm_ismember]' ); ?>
+            <?php echo do_shortcode('[ceoiq-resources blog="1" cat="calculator" group="public"]'); ?>
+            <?php echo do_shortcode( '[wlm_ismember]'.'[ceoiq-resources blog="1" cat="calculator" group="'.$site_slug.'"]'.'[/wlm_ismember]' ); ?>
+            <?php echo do_shortcode('[ceoiq-resources cat="calculator"]'); ?>
         </div><!-- END: calculators -->
 
-        <h3 id="eBooks" data-accordion="title"><i class="fa fa-book"></i> eBooks</h3>
+        <h3 id="eBooks" data-accordion="title"><i class="fas fa-book"></i> eBooks</h3>
         <div data-accordion="content">
-            <?php echo do_shortcode('[ceoiq-resources cat="ebook" group="public"]'); ?>
-            <?php echo do_shortcode( '[wlm_ismember]'.'[ceoiq-resources cat="ebook" group="'.$site_slug.'"]'.'[/wlm_ismember]' ); ?>
+            <?php echo do_shortcode('[ceoiq-resources blog="1" cat="ebook" group="public"]'); ?>
+            <?php echo do_shortcode( '[wlm_ismember]'.'[ceoiq-resources blog="1" cat="ebook" group="'.$site_slug.'"]'.'[/wlm_ismember]' ); ?>
+            <?php echo do_shortcode('[ceoiq-resources cat="ebook"]'); ?>
         </div><!-- END: eBooks -->
 
-        <h3 id="tools" data-accordion="title"><i class="fa fa-bar-chart-o"></i> Diagnostics & Tools</h3>
+        <h3 id="tools" data-accordion="title"><i class="fas fa-chart-bar"></i> Diagnostics & Tools</h3>
         <div data-accordion="content">
-            <?php echo do_shortcode('[ceoiq-resources cat="diagnostic" group="public"]'); ?>
-            <?php echo do_shortcode( '[wlm_ismember]'.'[ceoiq-resources cat="diagnostic" group="'.$site_slug.'"]'.'[/wlm_ismember]' ); ?>
+            <?php echo do_shortcode('[ceoiq-resources blog="1" cat="diagnostic" group="public"]'); ?>
+            <?php echo do_shortcode( '[wlm_ismember]'.'[ceoiq-resources blog="1" cat="diagnostic" group="'.$site_slug.'"]'.'[/wlm_ismember]' ); ?>
+            <?php echo do_shortcode('[ceoiq-resources cat="diagnostic"]'); ?>
         </div><!-- END: tools -->
 
-        <h3 id="worksheets" data-accordion="title"><i class="fa fa-file-alt"></i> Worksheets</h3>
+        <h3 id="worksheets" data-accordion="title"><i class="fas fa-file-alt"></i> Worksheets</h3>
         <div data-accordion="content">
-            <?php echo do_shortcode('[ceoiq-resources cat="worksheet" group="public"]'); ?>
-            <?php echo do_shortcode( '[wlm_ismember]'.'[ceoiq-resources cat="worksheet" group="'.$site_slug.'"]'.'[/wlm_ismember]' ); ?>
+            <?php echo do_shortcode('[ceoiq-resources blog="1" cat="worksheet" group="public"]'); ?>
+            <?php echo do_shortcode( '[wlm_ismember]'.'[ceoiq-resources blog="1" cat="worksheet" group="'.$site_slug.'"]'.'[/wlm_ismember]' ); ?>
+            <?php echo do_shortcode('[ceoiq-resources cat="worksheet"]'); ?>
         </div><!-- END: worksheets -->
         
-        <h3 id="videos" data-accordion="title"><i class="fa fa-video-camera"></i> Videos</h3>
+        <h3 id="videos" data-accordion="title"><i class="fas fa-video"></i> Videos</h3>
         <div data-accordion="content">
-            <?php echo do_shortcode('[ceoiq-resources cat="video" group="public"]'); ?>
-            <?php echo do_shortcode( '[wlm_ismember]'.'[ceoiq-resources cat="video" group="'.$site_slug.'"]'.'[/wlm_ismember]' ); ?>
+            <?php echo do_shortcode('[ceoiq-resources blog="1" cat="video" group="public"]'); ?>
+            <?php echo do_shortcode( '[wlm_ismember]'.'[ceoiq-resources blog="1" cat="video" group="'.$site_slug.'"]'.'[/wlm_ismember]' ); ?>
+            <?php echo do_shortcode('[ceoiq-resources cat="video"]'); ?>
         </div><!-- END: videos -->
 
     </div><!-- .accordion -->

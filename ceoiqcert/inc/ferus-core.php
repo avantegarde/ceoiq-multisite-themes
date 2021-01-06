@@ -831,33 +831,46 @@ add_shortcode('must-reads', 'must_reads_shortcode');
  * Resources Shortcode
  ******************************************************************************/
 function ceoiq_resources_shortcode($atts, $content = null) {
-    switch_to_blog(1);
     ob_start();
     // Attributes
     extract(shortcode_atts(
             array(
+                'blog' => '',
                 'posts' => '-1',
                 'group' => '',
                 'cat' => '',
             ), $atts)
     );
+    if($blog){
+        switch_to_blog($blog);
+    }
+    //$blog_id = $blog?$blog:get_current_blog_id();
+    //switch_to_blog($blog_id);
+    //var_dump($blog_id);
 
     // Code
-    $resource_args = array(
+    $default_args = array(
         'post_type' => 'resources',
         //'tag' => '',
         'meta_key' => 'ceoiq_resource_type',
         'meta_value' => $cat,
-        'tax_query' => array(
-            array(
-                'taxonomy' => 'resource_cat',
-                'field'    => 'slug',
-                'terms'    => $group,
-            ),
-        ),
         'posts_per_page' => -1,
         'order' => 'DESC',
     );
+    if ($group) {
+        $group_args = array(
+            'tax_query' => array(
+                array(
+                    'taxonomy' => 'resource_cat',
+                    'field'    => 'slug',
+                    'terms'    => $group,
+                ),
+            ),
+        );
+        $resource_args = array_merge($default_args,$group_args);
+    } else {
+        $resource_args = $default_args;
+    }
     $resource_query = new WP_Query($resource_args); ?>
     <ul class="icon-list <?php echo $cat; ?>">
     <?php if ($resource_query->have_posts()) : ?>
@@ -916,9 +929,9 @@ function ceoiq_resources_shortcode($atts, $content = null) {
             </li>
         <?php endwhile; wp_reset_postdata(); ?>
     <?php else : ?>
-        <div>
+        <!-- <div>
             <p>Sorry! No resources found within your criteria.</p>
-        </div>
+        </div> -->
     <?php endif; ?>
     </ul><!-- .resources-wrap -->
     <?php if($cat === 'video') : ?>
@@ -946,7 +959,9 @@ function ceoiq_resources_shortcode($atts, $content = null) {
     </script>
     <?php endif; ?>
     <?php
-    restore_current_blog();
+    if($blog){
+        restore_current_blog();
+    }
     $output = ob_get_clean();
     return $output;
 }
