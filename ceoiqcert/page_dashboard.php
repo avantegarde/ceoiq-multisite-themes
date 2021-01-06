@@ -92,15 +92,16 @@ if($iHeight) {
                     <h2 class="section-title center line">Your Goals</h2>
                     <div class="db-slideset-goals">
                         <?php 
-                        $business_goal1 = uwp_get_usermeta($user_ID, 'business_goal_1');
-                        $business_goal2 = uwp_get_usermeta($user_ID, 'business_goal_2');
-                        $business_goal3 = uwp_get_usermeta($user_ID, 'business_goal_3');
-                        $personal_goal1 = uwp_get_usermeta($user_ID, 'personal_goal_1');
-                        $personal_goal2 = uwp_get_usermeta($user_ID, 'personal_goal_2');
-                        $personal_goal3 = uwp_get_usermeta($user_ID, 'personal_goal_3');
-                        $health_goal1 = uwp_get_usermeta($user_ID, 'health_goal_1');
-                        $health_goal2 = uwp_get_usermeta($user_ID, 'health_goal_2');
-                        $health_goal3 = uwp_get_usermeta($user_ID, 'health_goal_3');
+                        $empty_goal = '<a href="'.site_url('account').'" data-button>Add Goal</a>';
+                        $business_goal1 = uwp_get_usermeta($user_ID, 'business_goal_1')?uwp_get_usermeta($user_ID, 'business_goal_1'):$empty_goal;
+                        $business_goal2 = uwp_get_usermeta($user_ID, 'business_goal_2')?uwp_get_usermeta($user_ID, 'business_goal_2'):$empty_goal;
+                        $business_goal3 = uwp_get_usermeta($user_ID, 'business_goal_3')?uwp_get_usermeta($user_ID, 'business_goal_3'):$empty_goal;
+                        $personal_goal1 = uwp_get_usermeta($user_ID, 'personal_goal_1')?uwp_get_usermeta($user_ID, 'personal_goal_1'):$empty_goal;
+                        $personal_goal2 = uwp_get_usermeta($user_ID, 'personal_goal_2')?uwp_get_usermeta($user_ID, 'personal_goal_2'):$empty_goal;
+                        $personal_goal3 = uwp_get_usermeta($user_ID, 'personal_goal_3')?uwp_get_usermeta($user_ID, 'personal_goal_3'):$empty_goal;
+                        $health_goal1 = uwp_get_usermeta($user_ID, 'health_goal_1')?uwp_get_usermeta($user_ID, 'health_goal_1'):$empty_goal;
+                        $health_goal2 = uwp_get_usermeta($user_ID, 'health_goal_2')?uwp_get_usermeta($user_ID, 'health_goal_2'):$empty_goal;
+                        $health_goal3 = uwp_get_usermeta($user_ID, 'health_goal_3')?uwp_get_usermeta($user_ID, 'health_goal_3'):$empty_goal;
                         $user_goals = array(
                             'Business Goal 1' => $business_goal1,
                             'Business Goal 2' => $business_goal2,
@@ -215,7 +216,7 @@ if($iHeight) {
                     <h2 class="section-title center line">Featured Articles</h2>
                 </div>
                 <?php // echo do_shortcode('[must-reads posts="4" category="featured"]'); ?>
-                <?php echo do_shortcode('[must-reads posts="4" category=""]'); ?>
+                <?php echo do_shortcode('[must-reads posts="4" category="featured"]'); ?>
             </section>
 
             

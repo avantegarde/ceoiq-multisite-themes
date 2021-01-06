@@ -202,8 +202,9 @@
   content: "\f03d";
 }
 /*--- Tooltip Fixes ---*/
-/* Hide tooltip on user account page. otherwise it messes up the "edit profile pic" button */
-.uwp_account_page .tooltip.fade.show {
+/* Hide tooltip on user account and profile page. otherwise it messes up the "edit profile pic" and "edit profile" button */
+.uwp_account_page .tooltip.fade.show,
+.uwp_profile_page .tooltip.fade.show {
   pointer-events: none;
   display: none !important;
 }

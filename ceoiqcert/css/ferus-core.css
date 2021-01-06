@@ -402,6 +402,9 @@ form.bs ul li.gfield_html.empty {
   min-height: 0px !important;
   border: none !important;
 }
+.gform_wrapper form.center-footer .gform_footer {
+  text-align: center;
+}
 /* Checkboxes & Radio */
 .gform_wrapper ul.gfield_checkbox li,
 .gform_wrapper ul.gfield_radio li {
@@ -1215,7 +1218,7 @@ header.site-header {
   top: 0;
   right: 0;
   left: 0;
-  z-index: 9999;
+  z-index: 100;
   background: rgba(255,255,255,0.75);
   color: #000000;
 }
@@ -1268,7 +1271,7 @@ header #logo span {
   left: 0;
   width: 100%;
   height: 0;
-  z-index: 999999;
+  z-index: 500;
 }
 .admin-bar .floating-button {
   top: 32px;
@@ -1353,7 +1356,7 @@ body.noscroll {
   padding: 45px 0 0 15px;
   background: rgba(255,255,255,0.95);
   box-shadow: none;
-  z-index: 99999;
+  z-index: 200;
   transition: all 0.3s ease-in-out;
 }
 .admin-bar #menu-float {

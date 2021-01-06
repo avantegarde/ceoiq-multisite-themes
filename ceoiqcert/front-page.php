@@ -59,7 +59,7 @@ get_header(); ?>
                     <p>And, you can learn more while you are here by clicking on the “About” navigation button at the top of this page. There is a detailed description of our Mission and Vision along with lots of details about the Group programs.  You can also find out more back on the main site, on the <a href="https://www.ceoiq.com/peer-groups/" onclick="_gaq.push(['_trackEvent', 'outbound-article', 'https://www.ceoiq.com/peer-groups/', 'Peer Advisory Groups page']);" target="_blank">Peer Advisory Groups page</a>.</p>
                     <p>Interested in the concept of ARETE that is our guiding vision at CEOIQ.  Get an in-depth look at what ARETE means and how we apply it to developing 21st Century Leaders by visiting the <a href="https://www.ceoiq.com/what-is-arete/" onclick="_gaq.push(['_trackEvent', 'outbound-article', 'https://www.ceoiq.com/what-is-arete/', 'ARETE Information Page']);" target="_blank">ARETE Information Page</a>, it’s also back on the main website.</p>
                     <p>To find out if a CEOIQ Group is a fit for you, please give us some information about yourself using the webform below. It’s the first step to discovering how a CEOIQ Peer Advisory Group can support you on your journey of ARETE to become a more effective leader!</p>
-                    <p><a href="#" data-button>Get Started Today!</a></p>
+                    <p><a href="#" data-button data-toggle="modal" data-target="#groupSignup">Get Started Today!</a></p>
                 </div>
             </div>
         </section>
@@ -126,7 +126,7 @@ get_header(); ?>
                             <p>Join now to begin.</p>
                         </div>
                         <div class="button-wrap">
-                            <a href="#" data-button="" class="button-large">Get Started</a>
+                            <a href="#" data-button="" class="button-large" data-toggle="modal" data-target="#groupSignup">Get Started</a>
                         </div>
                     </div>
 
@@ -138,23 +138,17 @@ get_header(); ?>
 </div><!-- #primary -->
 
 <!-- Start Modal -->
-<!-- <div id="myModal" class="modal fade" tabindex="-1" role="dialog">
+<div id="groupSignup" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Modal title</h4>
-            </div>
             <div class="modal-body">
-                <p>One fine body&hellip;</p>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h3 class="section-title center">Group Signup</h3>
+                <?php echo do_shortcode('[gravityform id="2" title="false" description="false" ajax="true" tabindex="999"]'); ?>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-        </div>
-    </div>
-</div> -->
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 <!-- END Modal -->
 
 <?php get_footer();

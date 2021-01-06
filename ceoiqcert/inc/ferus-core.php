@@ -84,25 +84,15 @@ function remove_admin_bar() {
 }
 
 /**
- * Redirect logged out users to the login page
- * &
- * Redirect the login page to landlord members for logged in users
+ * Redirect logged out users to the main page
  */
-/* add_action( 'template_redirect', 'redirect_logged_out_users' );
-
+add_action( 'template_redirect', 'redirect_logged_out_users' );
 function redirect_logged_out_users() {
-
-    if ( is_page('landlord-members') && ! is_user_logged_in() ) {
-        wp_redirect( '/login/' );
-        exit;
-    } else if ( is_page('owner-members') && ! is_user_logged_in() ) {
-        wp_redirect( '/login/' );
-        exit;
-    } else if ( is_page('login') && is_user_logged_in() ) {
-        wp_redirect( '/owner-members/' );
+    if (!is_front_page() && !is_page('login') && !is_page('reset') && !is_user_logged_in()) {
+        wp_redirect( site_url() );
         exit;
     }
-} */
+}
 /**
  * Add Post Formats to posts
  */
