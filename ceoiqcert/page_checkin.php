@@ -148,7 +148,7 @@ $user_name = $user->display_name;
                         </div><!-- #member-checkin -->
                         <div id="member-goals">
                             <h2 class="tab-title">Member Goals</h2>
-                            <?php echo do_shortcode('[user-goals role="Member"]'); ?>
+                            <?php echo do_shortcode('[user-goals role="subscriber"]'); ?>
                         </div>
                     </div>
                 </div><!-- .tabs-wrap -->
