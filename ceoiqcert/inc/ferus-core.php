@@ -845,7 +845,7 @@ function ceoiq_resources_shortcode($atts, $content = null) {
         'meta_key' => 'ceoiq_resource_type',
         'meta_value' => $cat,
         'posts_per_page' => -1,
-        'order' => 'DESC',
+        'order' => 'ASC',
     );
     if ($group) {
         $group_args = array(
