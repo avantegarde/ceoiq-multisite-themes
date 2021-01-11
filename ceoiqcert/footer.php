@@ -45,17 +45,6 @@
     </div><!-- .modal -->
 <?php endif; ?>
 
-<div id="loginModal" class="modal fade" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-body">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <?php echo do_shortcode('[uwp_login]'); ?>
-            </div>
-        </div><!-- .modal-content -->
-    </div><!-- .modal-dialog -->
-</div><!-- .modal -->
-
 <?php wp_footer(); ?>
 <!--[if lt IE 9]>
 <script src="<?php echo get_template_directory_uri() . '/js/EQCSS-polyfills.min.js'?>"></script><![endif]-->

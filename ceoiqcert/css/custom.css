@@ -1,3 +1,7 @@
+/*--- Page min-height ---*/
+#primary {
+  min-height: calc(100vh - 325px);
+}
 /*--- Section Line Title ---*/
 .section-title.line {
   display: block;
@@ -182,6 +186,18 @@
     width: 100%;
   }
 }
+/*--- Sidebar Featured Speaker --*/
+#sidebar .sc-featured-speaker {
+  flex-wrap: wrap;
+}
+#sidebar .sc-featured-speaker #speaker-img {
+  margin: 0 auto;
+}
+#sidebar  .sc-featured-speaker .speaker-details {
+  width: 100%;
+  padding-left: 0;
+  text-align: center;
+}
 /*--- Calculator List ---*/
 .accordion ul.icon-list.calculator li:before {
   content: "\f1ec";
@@ -200,6 +216,37 @@
 }
 .accordion ul.icon-list.video li:before {
   content: "\f03d";
+}
+/*--- WPUsers default styles override ---*/
+.bsui .btn-primary {
+  color: #fff;
+  background-color: #1e73be;
+  border-color: #1e73be;
+}
+/*--- Account Page ---*/
+.uwp_account_page #primary {
+  padding-top: 0;
+}
+/* Hide Privacy and notifications tabs on account page */
+.bsui .uwp-account-privacy,
+.bsui .uwp-account-notifications {
+  display: none !important;
+}
+/*--- re-add labels to edit account fields ---*/
+.uwp_account_page .bsui .uwp-account-form {
+  margin-top: 0;
+}
+.uwp_account_page .bsui .uwp-account-form .sr-only {
+  position: relative;
+  width: auto;
+  height: auto;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: unset;
+  white-space: nowrap;
+  border: 0;
+  font-size: 14px;
 }
 /*--- Tooltip Fixes ---*/
 /* Hide tooltip on user account and profile page. otherwise it messes up the "edit profile pic" and "edit profile" button */

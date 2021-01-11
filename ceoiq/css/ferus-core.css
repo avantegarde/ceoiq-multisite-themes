@@ -4320,7 +4320,7 @@ article.single-post .entry-footer .tags > a:hover {
   margin: 15px 0;
   border: none;
   border-radius: 0px;
-  box-shadow: 0 5px 8px 0 rgba(0,0,0,0.15);
+  box-shadow: 0 2px 10px 0 rgba(0,0,0,0.2);
   background: #ffffff;
   overflow: hidden;
 }

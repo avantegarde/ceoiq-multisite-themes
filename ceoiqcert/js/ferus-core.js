@@ -298,6 +298,60 @@ jQuery(document).ready(function ($) {
         });
     }
 
+    // Set Cookie
+    function setCookie(cname, cvalue, exdays, path) {
+        var d = new Date();
+        if (path){
+            var path = path;
+        } else {
+            var path = "";
+        }
+        if (exdays != 'session') {
+            d.setTime(d.getTime() + (exdays*24*60*60*1000));
+            var expires = "expires="+d.toUTCString();
+            document.cookie = cname + "=" + cvalue + "; " + expires + "; path=/" + path;
+        } else {
+            document.cookie = cname + "=" + cvalue + "; " + "; path=/" + path;
+        }
+    }
+    // Get Cookie
+    function getCookie(cname) {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+    // Cookie Enabled Modal
+    /*function cookiePop(){
+        var modalSession = getCookie("login_pop");
+        var url = window.location.href;
+        if(url.indexOf('?login=1') != -1) {
+            // query string activation
+            $('#loginModal').modal('show');
+        } else {
+            if (modalSession != "") {
+                // Cookie Found, Don't Trigger Modal
+                return false;
+            } else {
+                // Cookie NOT Found
+                //Trigger Modal
+                $('#loginModal').modal('show');
+            }
+        }
+    }cookiePop();*/
+    // Set cookie after modal closes
+    /*$('#loginModal').on('hidden.bs.modal', function (e) {
+        setCookie("login_pop", "value", 1, "");
+    });*/
+
 });// END document.ready
 
 /*************************************************************************/

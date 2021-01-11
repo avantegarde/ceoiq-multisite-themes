@@ -151,4 +151,20 @@ get_header(); ?>
 </div><!-- /.modal -->
 <!-- END Modal -->
 
+<div id="loginModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <?php echo do_shortcode('[uwp_login]'); ?>
+            </div>
+        </div><!-- .modal-content -->
+    </div><!-- .modal-dialog -->
+</div><!-- .modal -->
+<script>
+jQuery(document).ready(function ($) {
+    $('#loginModal').modal('show');
+});// END document.ready
+</script>
+
 <?php get_footer();

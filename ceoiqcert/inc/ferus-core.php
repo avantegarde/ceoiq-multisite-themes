@@ -82,7 +82,6 @@ function remove_admin_bar() {
         show_admin_bar(false);
     }
 }
-
 /**
  * Redirect logged out users to the main page
  */
@@ -90,6 +89,11 @@ add_action( 'template_redirect', 'redirect_logged_out_users' );
 function redirect_logged_out_users() {
     if (!is_front_page() && !is_page('login') && !is_page('reset') && !is_user_logged_in()) {
         wp_redirect( site_url() );
+        exit;
+    }
+    // Redirect front page to dashboard if logged in (non-admins)
+    if (is_front_page() && is_user_logged_in() && !current_user_can('administrator') && !is_admin()) {
+        wp_redirect( site_url('/dashboard') );
         exit;
     }
 }
