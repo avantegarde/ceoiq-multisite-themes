@@ -168,7 +168,7 @@ if($iHeight) {
                         <!-- Material theme -->
                         <!-- <div class="auto-jsCalendar material-theme custom-green"></div> -->
                         <div id="cert-calendar" class="material-theme custom-green"></div>
-                        <!-- Selected Day click : <br><input id="dayclick"> -->
+                        Selected Day click : <br><input id="dayclick">
                         <?php 
                         $meetings_args = array(
                             'post_type' => 'meetings',
@@ -190,6 +190,7 @@ if($iHeight) {
                     <div class="col-md-6">
                         <h3>Upcoming Meeting</h3>
                         <?php echo do_shortcode('[upcoming-meeting]'); ?>
+                        <div id="meeting-data"></div>
                     </div>
                     </div>
                 </div>
@@ -288,7 +289,7 @@ jQuery(document).ready(function ($) {
     // Add events
     certCalendar.select(calEvents);
     // Calendar Click Events
-    //var inputA = document.getElementById("dayclick");
+    var inputA = document.getElementById("dayclick");
     certCalendar.onDateClick(function(event, date){
         let meeting_info = document.querySelectorAll('.meeting-info');
         for(i=0;i<meeting_info.length;i++){
@@ -299,8 +300,18 @@ jQuery(document).ready(function ($) {
             const mo = new Intl.DateTimeFormat('en', { month: 'short' }).format(date);
             const da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(date);
             let selected_meeting = document.getElementById(mo+'-'+da+'-'+ye);
-            selected_meeting.style.display = 'block';
-            //inputA.value = mo+'-'+da+'-'+ye;
+            //selected_meeting.style.display = 'block';
+            inputA.value = mo+'-'+da+'-'+ye;
+            //inputA.value = date.toString();
+            // Get Meeting Events
+            var meetingsUrl = <?php echo '"'.site_url('/wp-json/wp/v2/meetings').'"'; ?>;
+            $.getJSON(meetingsUrl, function(data) {
+                //console.log(data);
+                //var meetings = data;
+                var output = document.getElementById('meeting-data');
+                var meetingData = JSON.stringify(data);
+                output.innerHTML = meetingData;
+            });
         }
     });
 });// END document.ready

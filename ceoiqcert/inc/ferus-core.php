@@ -1555,3 +1555,18 @@ function upcoming_meeting_shortcode($atts, $content = null) {
 }
 
 add_shortcode('upcoming-meeting', 'upcoming_meeting_shortcode');
+
+/**
+ * Add ACF data to "meetings" post type 
+ * https://support.advancedcustomfields.com/forums/topic/json-rest-api-and-acf/
+ */
+function meetings_acf_to_rest_api($response, $post, $request) {
+    if (!function_exists('get_fields')) return $response;
+
+    if (isset($post)) {
+        $acf = get_fields($post->id);
+        $response->data['acf'] = $acf;
+    }
+    return $response;
+}
+add_filter('rest_prepare_meetings', 'meetings_acf_to_rest_api', 10, 3);
