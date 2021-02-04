@@ -190,9 +190,10 @@ if($iHeight) {
                                 $meeting_loc = $meeting_location;
                             } else {
                                 $virtual_url = $meeting_url?$meeting_url:'#';
-                                $meeting_loc = '<a href="'.$virtual_url.'">Virtual</a>';
+                                $meeting_loc = '<a href="'.$virtual_url.'" target="_blank">Virtual</a>';
                             }
-                            $meeting_speaker = get_field('meeting_speaker');
+                            $meeting_speaker_ID = get_field('meeting_speaker');
+                            $meeting_speaker = get_the_title($meeting_speaker_ID);
                             // Build Dates For Calendar
                             $newDate = date_create($meeting_date);
                             $f_date = date_format($newDate, 'M-d-Y');
@@ -205,9 +206,8 @@ if($iHeight) {
                                 'meeting_start_time' => $meeting_start_time,
                                 'meeting_end_time' => $meeting_end_time,
                                 'meeting_type' => $meeting_type,
-                                'meeting_link' => $meeting_loc,
-                                'meeting_url' => $meeting_url,
-                                'meeting_location' => $meeting_location,
+                                'meeting_location' => $meeting_loc,
+                                'meeting_address' => $meeting_location,
                                 'meeting_speaker' => $meeting_speaker,
                                 'permalink' => get_permalink(),
                             );
@@ -350,7 +350,7 @@ jQuery(document).ready(function ($) {
                 <ul class="icon-list">
                     ${meeting.meeting_start_time?'<li data-icon="clock">Start Time: '+meeting.meeting_start_time+'</li>':''}
                     ${meeting.meeting_end_time?'<li data-icon="stopwatch">End Time: '+meeting.meeting_end_time+'</li>':''}
-                    ${meeting.meeting_loc?'<li data-icon="pin">Location: '+meeting.meeting_loc+'</li>':''}
+                    ${meeting.meeting_location?'<li data-icon="pin">Location: '+meeting.meeting_location+'</li>':''}
                     ${meeting.meeting_speaker?'<li data-icon="speaker">Speaker: '+meeting.meeting_speaker+'</li>':''}
                 </ul>
                 <p><a href="${meeting.permalink}" data-button>View Meeting</a></p>

@@ -1523,7 +1523,7 @@ function upcoming_meeting_shortcode($atts, $content = null) {
                 $meeting_loc = $meeting_location;
             } else {
                 $virtual_url = $meeting_url?$meeting_url:'#';
-                $meeting_loc = '<a href="'.$virtual_url.'">Virtual</a>';
+                $meeting_loc = '<a href="'.$virtual_url.'" target="_blank">Virtual</a>';
             }
             $meeting_speaker = get_field('meeting_speaker');
             ?>
