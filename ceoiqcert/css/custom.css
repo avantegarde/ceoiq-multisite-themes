@@ -85,6 +85,11 @@
 #cert-calendar .jsCalendar-selected {
   border-color: #613d89;
   line-height: 32px !important;
+  cursor: pointer;
+}
+#cert-calendar .jsCalendar-selected.active {
+  background: #613d89;
+  color: #ffffff;
 }
 /*--- Dashboard Upcoming Meeting ---*/
 .upcoming-meeting .meeting-date {

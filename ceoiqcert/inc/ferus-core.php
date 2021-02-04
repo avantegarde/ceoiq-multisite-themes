@@ -1500,7 +1500,7 @@ function upcoming_meeting_shortcode($atts, $content = null) {
             array(
                 'key' => 'meeting_date',
                 'value' => $today,
-                'compare' => '>',
+                'compare' => '>=',
                 'type' => 'DATE'
             )
         ),
@@ -1509,7 +1509,7 @@ function upcoming_meeting_shortcode($atts, $content = null) {
         'order' => 'ASC'
     );
     $meetings_query = new WP_Query($meeting_args); ?>
-    <div class="upcoming-meeting">
+    <div id="upcoming-meeting" class="upcoming-meeting">
     <?php if ($meetings_query->have_posts()) : ?>
         <?php while ( $meetings_query->have_posts() ) : $meetings_query->the_post(); ?>
             <?php
@@ -1570,3 +1570,41 @@ function meetings_acf_to_rest_api($response, $post, $request) {
     return $response;
 }
 add_filter('rest_prepare_meetings', 'meetings_acf_to_rest_api', 10, 3);
+
+/**
+ * Add meta fields support in rest API for post type `Post`
+ *
+ * This function will allow custom parameters within API request URL. Add post meta support for post type `Post`.
+ * 
+ * > How to use?
+ * http://mysite.com/wp-json/wp/v2/posts?meta_key=<my_meta_key>&meta_value=<my_meta_value>
+ * 
+ * > E.g. Get posts which post meta `already-visited` value is `true`.
+ *
+ * Request like: http://mysite.com/wp-json/wp/v2/post?meta_key=already-visited&meta_value=true
+ *
+ * @since 1.0.0
+ * 
+ * @link    https://codex.wordpress.org/Class_Reference/WP_Query
+ * 
+ * @see     Wp-includes/Rest-api/Endpoints/Class-wp-rest-posts-controller.php
+ * 
+ * @param   array   $args       Contains by default pre written params.
+ * @param   array   $request    Contains params values passed through URL request.
+ * @return  array   $args       New array with added custom params and its values.
+ */
+if( ! function_exists( 'meetings_meta_request_params' ) ) :
+	function meetings_meta_request_params( $args, $request )
+	{
+		$args += array(
+			'meta_key'   => $request['meta_key'],
+			'meta_value' => $request['meta_value'],
+			'meta_query' => $request['meta_query'],
+		);
+
+	    return $args;
+	}
+	add_filter( 'rest_meetings_query', 'meetings_meta_request_params', 99, 2 );
+	// add_filter( 'rest_page_query', 'post_meta_request_params', 99, 2 ); // Add support for `page`
+	// add_filter( 'rest_my-custom-post_query', 'post_meta_request_params', 99, 2 ); // Add support for `my-custom-post`
+endif;

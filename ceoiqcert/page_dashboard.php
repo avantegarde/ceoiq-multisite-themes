@@ -168,7 +168,7 @@ if($iHeight) {
                         <!-- Material theme -->
                         <!-- <div class="auto-jsCalendar material-theme custom-green"></div> -->
                         <div id="cert-calendar" class="material-theme custom-green"></div>
-                        Selected Day click : <br><input id="dayclick">
+                        <!-- Selected Day click : <br><input id="dayclick"> -->
                         <?php 
                         $meetings_args = array(
                             'post_type' => 'meetings',
@@ -176,21 +176,48 @@ if($iHeight) {
                             'order' => 'DESC'
                         );
                         $meeting_dates = array();
+                        $meetings_data = array();
                         $meetings_query = new WP_Query($meetings_args);
                         if ($meetings_query->have_posts()) :
                             while ( $meetings_query->have_posts() ) : $meetings_query->the_post();
                             $meeting_date = get_field('meeting_date');
+                            $meeting_start_time = get_field('meeting_start_time');
+                            $meeting_end_time = get_field('meeting_end_time');
+                            $meeting_type = get_field('meeting_type');
+                            $meeting_url = get_field('meeting_url');
+                            $meeting_location = get_field('meeting_location');
+                            if($meeting_type === 'local') {
+                                $meeting_loc = $meeting_location;
+                            } else {
+                                $virtual_url = $meeting_url?$meeting_url:'#';
+                                $meeting_loc = '<a href="'.$virtual_url.'">Virtual</a>';
+                            }
+                            $meeting_speaker = get_field('meeting_speaker');
+                            // Build Dates For Calendar
                             $newDate = date_create($meeting_date);
                             $f_date = date_format($newDate, 'M-d-Y');
                             $cal_date = date_format($newDate, 'd/m/Y');
                             array_push($meeting_dates, $cal_date);
+                            // Build Meeting Info
+                            $meeting = array(
+                                'id' => $post->ID,
+                                'meeting_date' => $meeting_date,
+                                'meeting_start_time' => $meeting_start_time,
+                                'meeting_end_time' => $meeting_end_time,
+                                'meeting_type' => $meeting_type,
+                                'meeting_link' => $meeting_loc,
+                                'meeting_url' => $meeting_url,
+                                'meeting_location' => $meeting_location,
+                                'meeting_speaker' => $meeting_speaker,
+                                'permalink' => get_permalink(),
+                            );
+                            array_push($meetings_data, $meeting);
                             endwhile; wp_reset_postdata();
                         endif;?>
                     </div>
                     <div class="col-md-6">
-                        <h3>Upcoming Meeting</h3>
+                        <h3>Upcoming Meeting / Event</h3>
                         <?php echo do_shortcode('[upcoming-meeting]'); ?>
-                        <div id="meeting-data"></div>
                     </div>
                     </div>
                 </div>
@@ -283,37 +310,63 @@ jQuery(document).ready(function ($) {
     /**
      * Calendar with events highlighted
      */
+    // ajax -> Get Meeting Events
+    /*var meetingsUrl = <?php // echo '"'.site_url('/wp-json/wp/v2/meetings').'"'; ?>;
+    function getMeeting(meetingDate, callback) {
+        meeting = null;
+        $.getJSON(meetingsUrl+'?meta_key=meeting_date&meta_value='+meetingDate, function (jsonData) {
+            meeting = jsonData;
+            callback(meeting);
+        });
+    }*/
+    /*getMeeting("86, function(meetings) {
+        console.log(meetings);
+    });*/
+    // Initialize Calendar
     var calendarEl = document.getElementById("cert-calendar");
     var certCalendar = jsCalendar.new(calendarEl);
     var calEvents = <?php echo json_encode($meeting_dates); ?>;
+    var meetings = <?php echo json_encode($meetings_data); ?>;
     // Add events
     certCalendar.select(calEvents);
     // Calendar Click Events
-    var inputA = document.getElementById("dayclick");
     certCalendar.onDateClick(function(event, date){
         let meeting_info = document.querySelectorAll('.meeting-info');
-        for(i=0;i<meeting_info.length;i++){
-            meeting_info[i].style.display = 'none';
-        }
-        if(event.path[0].classList.contains('jsCalendar-selected')) {
+        let cal_cells = document.querySelectorAll('#cert-calendar td');
+        [].forEach.call(cal_cells, function(el) {
+            el.classList.remove("active");
+        });
+        if(event.target.classList.contains('jsCalendar-selected')) {
+            event.target.classList.add('active');
             const ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(date);
-            const mo = new Intl.DateTimeFormat('en', { month: 'short' }).format(date);
-            const da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(date);
-            let selected_meeting = document.getElementById(mo+'-'+da+'-'+ye);
-            //selected_meeting.style.display = 'block';
-            inputA.value = mo+'-'+da+'-'+ye;
-            //inputA.value = date.toString();
-            // Get Meeting Events
-            var meetingsUrl = <?php echo '"'.site_url('/wp-json/wp/v2/meetings').'"'; ?>;
-            $.getJSON(meetingsUrl, function(data) {
-                //console.log(data);
-                //var meetings = data;
-                var output = document.getElementById('meeting-data');
-                var meetingData = JSON.stringify(data);
-                output.innerHTML = meetingData;
-            });
+            const mo = new Intl.DateTimeFormat('en', { month: 'long' }).format(date);
+            const da = new Intl.DateTimeFormat('en', { day: 'numeric' }).format(date);
+            //inputA.value = mo+' '+da+', '+ye;
+            let meetingDate = mo+' '+da+', '+ye;
+            let meetingElement = document.getElementById('upcoming-meeting');
+            let meeting = getMeeting(meetings, meetingDate);
+            let meetingContent = `
+                <p class="meeting-date">Date: ${meeting.meeting_date}</p>
+                <ul class="icon-list">
+                    ${meeting.meeting_start_time?'<li data-icon="clock">Start Time: '+meeting.meeting_start_time+'</li>':''}
+                    ${meeting.meeting_end_time?'<li data-icon="stopwatch">End Time: '+meeting.meeting_end_time+'</li>':''}
+                    ${meeting.meeting_loc?'<li data-icon="pin">Location: '+meeting.meeting_loc+'</li>':''}
+                    ${meeting.meeting_speaker?'<li data-icon="speaker">Speaker: '+meeting.meeting_speaker+'</li>':''}
+                </ul>
+                <p><a href="${meeting.permalink}" data-button>View Meeting</a></p>
+            `;
+            meetingElement.innerHTML = meetingContent;
         }
     });
+    function getMeeting(meetings, date) {
+        for(i=0;i<meetings.length;i++){
+            if(meetings[i].meeting_date === date){
+                return meetings[i];
+            }
+        }
+    }
+    /* END Event Calendar */
+
 });// END document.ready
 </script>
 
