@@ -21,24 +21,33 @@ get_header(); ?>
                 <div class="slide-caption">
                     <div class="container center">
                         <h3 class="section-title">Welcome to the CEOIQ <br>Peer Advisory Group Portal!</h3>
-                        <a href="#" data-button data-toggle="modal" data-target="#loginModal">Login</a>
+                        <!-- <a href="#" data-button data-toggle="modal" data-target="#loginModal">Login</a> -->
+                        <a href="#login" data-button>Login</a>
                         <!-- <a class="podcast-link" href="http://ceoiqradio.libsyn.com/" target="_blank"><i class="fa fa-podcast" aria-hidden="true"></i> Check out our Podcast <i class="fa fa-podcast" aria-hidden="true"></i></a> -->
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="digital-leadership-labs" class="">
+        <section id="login" class="blank">
+            <div class="container flex-align">
+                <div class="col-md-6">
+                    <?php echo do_shortcode('[uwp_login]'); ?>
+                </div>
+            </div>
+        </section>
+
+        <section id="welcome-members" class="">
             <div class="container flex-align">
                 <div class="col-sm-4 center">
                     <img src="/wp-content/themes/ceoiq/inc/images/icon-leadership.png" width="260">
                 </div>
-                <div class="col-sm-8">
+                <div class="col-md-8">
                     <h3 class="section-title">Welcome Members!</h3>
                     <p>Members of the CEOIQ Peer Groups – you are in the right place to log-in for your meetings, see your annual Business, Personal, Health &amp; Fitness goals, get meeting information and access the CEOIQ content available to you as a valued member of the CEOIQ community.</p>
                     <p>Please log-in at the right side of this page, using your access credentials.</p>
                     <p>Visitors! If you’ve found your way here…well, there isn’t anywhere else for you to go since you are not a member of a CEOIQ Peer Group. (Well, you can find out more about our Groups using the “About” button at the top of the page). Please click the “Home” button a the top of this page to return to the main Home Page of our website.</p>
-                    <p><a href="#" data-button data-toggle="modal" data-target="#loginModal">Login</a></p>
+                    <!-- <p><a href="#" data-button data-toggle="modal" data-target="#loginModal">Login</a></p> -->
                 </div>
             </div>
         </section>
@@ -156,15 +165,15 @@ get_header(); ?>
         <div class="modal-content">
             <div class="modal-body">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <?php echo do_shortcode('[uwp_login]'); ?>
+                <?php //echo do_shortcode('[uwp_login]'); ?>
             </div>
         </div><!-- .modal-content -->
     </div><!-- .modal-dialog -->
 </div><!-- .modal -->
-<script>
+<!-- <script>
 jQuery(document).ready(function ($) {
     $('#loginModal').modal('show');
 });// END document.ready
-</script>
+</script> -->
 
 <?php get_footer();
