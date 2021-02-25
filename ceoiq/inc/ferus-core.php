@@ -100,7 +100,9 @@ function cert_remove_dashboard_widget() {
  * Remove items from the admin bar
  */
 function remove_from_admin_bar($wp_admin_bar) {
-    // WordPress Core Items (uncomment to remove)
+    if (!current_user_can('administrator') && !is_admin()) {
+        $wp_admin_bar->remove_node('my-sites');
+    }
     $wp_admin_bar->remove_node('updates');
     $wp_admin_bar->remove_node('comments');
     $wp_admin_bar->remove_node('new-content');
@@ -110,6 +112,7 @@ function remove_from_admin_bar($wp_admin_bar) {
     // Plugins
     $wp_admin_bar->remove_node('breeze-topbar');
     $wp_admin_bar->remove_node('wpseo-menu');
+    
 }
 add_action('admin_bar_menu', 'remove_from_admin_bar', 9999);
 /**

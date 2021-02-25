@@ -106,6 +106,7 @@ function chair_member_remove_menus(){
         remove_menu_page( 'themes.php' );                               //Appearance
         remove_menu_page( 'plugins.php' );                              //Plugins
         remove_menu_page( 'tools.php' );                                //Tools
+        remove_menu_page( 'users.php' );                                //Users
         remove_menu_page( 'options-general.php' );                      //Settings
         remove_menu_page( 'userswp' );                                  //UsersWP
         remove_menu_page( 'edit.php?post_type=acf-field-group' );       //Custom Fields
@@ -150,6 +151,7 @@ function remove_from_admin_bar($wp_admin_bar) {
         // Plugins
         $wp_admin_bar->remove_node('breeze-topbar');
         $wp_admin_bar->remove_node('wpseo-menu');
+        $wp_admin_bar->remove_node('userswp');
     }
     $wp_admin_bar->remove_node('wp-logo');
 }
