@@ -73,14 +73,65 @@ function blockusers_init() {
 }*/
 
 /**
- * Disable Admin Bar for all users but admin
+ * Disable Admin Bar for all users but admin and chair_member
  */
 add_action('after_setup_theme', 'remove_admin_bar');
-
+function get_current_user_roles() {
+    if( is_user_logged_in() ) {
+        $user = wp_get_current_user();
+        $roles = ( array ) $user->roles;
+        return $roles; // This returns an array
+        // Use this to return a single value
+        // return $roles[0];
+    } else {
+        return array();
+    }
+}
 function remove_admin_bar() {
-    if (!current_user_can('administrator') && !is_admin()) {
+    $user_role = get_current_user_roles();
+    if (current_user_can('administrator') || is_admin() || in_array('chair_member',$user_role)) {
+        show_admin_bar(true);
+    } else {
         show_admin_bar(false);
     }
+}
+/**
+ * Remove admin menus for Chair Members
+ */
+function chair_member_remove_menus(){
+    $user_role = get_current_user_roles();
+    if(in_array('chair_member',$user_role)) {
+        remove_menu_page( 'index.php' );                                //Dashboard
+        remove_menu_page( 'edit-comments.php' );                        //Comments
+        remove_menu_page( 'themes.php' );                               //Appearance
+        remove_menu_page( 'plugins.php' );                              //Plugins
+        remove_menu_page( 'tools.php' );                                //Tools
+        remove_menu_page( 'options-general.php' );                      //Settings
+        remove_menu_page( 'userswp' );                                  //UsersWP
+        remove_menu_page( 'edit.php?post_type=acf-field-group' );       //Custom Fields
+        remove_menu_page( 'wp-mail-smtp' );                             //WP-Mail-SMTP
+        remove_menu_page( 'members' );                                  //Members
+        remove_menu_page( 'cptui_main_menu' );                          //CPTUI
+    }
+}
+add_action( 'admin_menu', 'chair_member_remove_menus', 999 );
+/**
+ * Remove Dashboard Metabox Widgets
+ */
+add_action('wp_dashboard_setup', 'cert_remove_dashboard_widget' );
+function cert_remove_dashboard_widget() {
+    global $wp_meta_boxes;
+    unset($wp_meta_boxes['dashboard']['side']['core']['dashboard_primary']);
+    unset($wp_meta_boxes['dashboard']['side']['core']['dashboard_secondary']);
+    unset($wp_meta_boxes['dashboard']['side']['core']['dashboard_quick_press']);
+    unset($wp_meta_boxes['dashboard']['normal']['core']['dashboard_incoming_links']);
+    unset($wp_meta_boxes['dashboard']['normal']['core']['dashboard_right_now']);
+    unset($wp_meta_boxes['dashboard']['normal']['core']['dashboard_plugins']);
+    unset($wp_meta_boxes['dashboard']['side']['core']['dashboard_recent_drafts']);
+    unset($wp_meta_boxes['dashboard']['normal']['core']['dashboard_recent_comments']);		
+    unset($wp_meta_boxes['dashboard']['normal']['core']['dashboard_activity']);
+    remove_meta_box( 'wpseo-dashboard-overview', 'dashboard', 'normal' );
+    remove_meta_box( 'rg_forms_dashboard', 'dashboard', 'normal' );
 }
 /**
  * Redirect logged out users to the main page

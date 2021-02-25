@@ -78,7 +78,24 @@ function remove_admin_bar() {
         show_admin_bar(false);
     }
 }
-
+/**
+ * Remove Dashboard Metabox Widgets
+ */
+add_action('wp_dashboard_setup', 'cert_remove_dashboard_widget' );
+function cert_remove_dashboard_widget() {
+    global $wp_meta_boxes;
+    unset($wp_meta_boxes['dashboard']['side']['core']['dashboard_primary']);
+    unset($wp_meta_boxes['dashboard']['side']['core']['dashboard_secondary']);
+    unset($wp_meta_boxes['dashboard']['side']['core']['dashboard_quick_press']);
+    unset($wp_meta_boxes['dashboard']['normal']['core']['dashboard_incoming_links']);
+    unset($wp_meta_boxes['dashboard']['normal']['core']['dashboard_right_now']);
+    unset($wp_meta_boxes['dashboard']['normal']['core']['dashboard_plugins']);
+    unset($wp_meta_boxes['dashboard']['side']['core']['dashboard_recent_drafts']);
+    unset($wp_meta_boxes['dashboard']['normal']['core']['dashboard_recent_comments']);		
+    unset($wp_meta_boxes['dashboard']['normal']['core']['dashboard_activity']);
+    remove_meta_box( 'wpseo-dashboard-overview', 'dashboard', 'normal' );
+    remove_meta_box( 'rg_forms_dashboard', 'dashboard', 'normal' );
+}
 /**
  * Redirect logged out users to the login page
  * &
