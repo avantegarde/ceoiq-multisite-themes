@@ -97,6 +97,22 @@ function cert_remove_dashboard_widget() {
     remove_meta_box( 'rg_forms_dashboard', 'dashboard', 'normal' );
 }
 /**
+ * Remove items from the admin bar
+ */
+function remove_from_admin_bar($wp_admin_bar) {
+    // WordPress Core Items (uncomment to remove)
+    $wp_admin_bar->remove_node('updates');
+    $wp_admin_bar->remove_node('comments');
+    $wp_admin_bar->remove_node('new-content');
+    $wp_admin_bar->remove_node('wp-logo');
+    $wp_admin_bar->remove_node('search');
+    $wp_admin_bar->remove_node('customize');
+    // Plugins
+    $wp_admin_bar->remove_node('breeze-topbar');
+    $wp_admin_bar->remove_node('wpseo-menu');
+}
+add_action('admin_bar_menu', 'remove_from_admin_bar', 9999);
+/**
  * Redirect logged out users to the login page
  * &
  * Redirect the login page to landlord members for logged in users
