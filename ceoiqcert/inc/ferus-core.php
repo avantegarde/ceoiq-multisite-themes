@@ -112,6 +112,7 @@ function chair_member_remove_menus(){
         remove_menu_page( 'wp-mail-smtp' );                             //WP-Mail-SMTP
         remove_menu_page( 'members' );                                  //Members
         remove_menu_page( 'cptui_main_menu' );                          //CPTUI
+        remove_menu_page( 'cookie-notice' );                            //Cookie Notice
     }
 }
 add_action( 'admin_menu', 'chair_member_remove_menus', 999 );
