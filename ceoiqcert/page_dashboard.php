@@ -327,7 +327,6 @@ jQuery(document).ready(function ($) {
     var certCalendar = jsCalendar.new(calendarEl);
     var calEvents = <?php echo json_encode($meeting_dates); ?>;
     var meetings = <?php echo json_encode($meetings_data); ?>;
-    console.log(meetings);
     // Add events
     certCalendar.select(calEvents);
     // Calendar Click Events
