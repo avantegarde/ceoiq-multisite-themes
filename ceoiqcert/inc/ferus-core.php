@@ -1480,20 +1480,21 @@ add_filter('manage_meetings_posts_columns',function($column_headers) {
 });
 
 /******************************************************************************
- * Order Meetings by meeting date. front-end AND backend
+ * Meetings Backend Admin List sort by meeting date.
  ******************************************************************************/
 add_action( 'pre_get_posts', 'meetings_order' );
 function meetings_order( $query ) {
-    // check if we’re in admin, if not exit
-    /*if ( ! is_admin ) {
-        return;
-    }*/
-    $post_type = $query->get('post_type');
-
-    if ( $post_type == 'meetings' ) {
+    if ( $query->is_main_query() && !is_admin() && is_post_type_archive('meetings') ) {
         $query->set( 'meta_key', 'meeting_date' );
         $query->set( 'orderby', 'meta_value_num' );
         $query->set( 'order', 'DESC' );
+    } elseif( is_admin() ) {
+        $post_type = $query->get('post_type');
+        if ( $post_type == 'meetings' ) {
+            $query->set( 'meta_key', 'meeting_date' );
+            $query->set( 'orderby', 'meta_value_num' );
+            $query->set( 'order', 'DESC' );
+        }
     }
 }
 /******************************************************************************
@@ -1662,7 +1663,7 @@ function upcoming_meeting_shortcode($atts, $content = null) {
                 <?php if ($meeting_end_time) : ?>
                     <li data-icon="stopwatch">End Time: <?php echo $meeting_end_time; ?></li>
                 <?php endif; ?>
-                <?php if ($meeting_end_time) : ?>
+                <?php if ($meeting_loc) : ?>
                     <li data-icon="pin">Location: <?php echo $meeting_loc; ?></li>
                 <?php endif; ?>
                 <?php if ($meeting_speaker) : ?>

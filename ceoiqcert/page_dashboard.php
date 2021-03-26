@@ -193,7 +193,7 @@ if($iHeight) {
                                 $meeting_loc = '<a href="'.$virtual_url.'" target="_blank">Virtual</a>';
                             }
                             $meeting_speaker_ID = get_field('meeting_speaker');
-                            $meeting_speaker = get_the_title($meeting_speaker_ID);
+                            $meeting_speaker = $meeting_speaker_ID?get_the_title($meeting_speaker_ID):'';
                             // Build Dates For Calendar
                             $newDate = date_create($meeting_date);
                             $f_date = date_format($newDate, 'M-d-Y');
@@ -327,6 +327,7 @@ jQuery(document).ready(function ($) {
     var certCalendar = jsCalendar.new(calendarEl);
     var calEvents = <?php echo json_encode($meeting_dates); ?>;
     var meetings = <?php echo json_encode($meetings_data); ?>;
+    console.log(meetings);
     // Add events
     certCalendar.select(calEvents);
     // Calendar Click Events
