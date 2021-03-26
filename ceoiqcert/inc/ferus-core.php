@@ -71,6 +71,13 @@ function blockusers_init() {
         exit;
     }
 }*/
+/**
+ * Redirect Admin Dashboard to Wishlist Member Dashboard Page
+ */
+function dashboard_redirect() {
+    wp_redirect( admin_url( 'admin.php?page=WishListMember' ) );
+}
+add_action('load-index.php', 'dashboard_redirect');
 
 /**
  * Disable Admin Bar for all users but admin and chair_member
@@ -1444,6 +1451,51 @@ add_action('manage_speakers_posts_custom_column', function($column_key, $post_id
 	}
 }, 10, 2);
 
+/******************************************************************************
+ * Add Meeting Date Column to meetings post list
+ ******************************************************************************/
+add_filter('manage_meetings_posts_columns', function($columns) {
+	return array_merge($columns, ['meeting_date' => 'Meeting Date']);
+});
+
+add_action('manage_meetings_posts_custom_column', function($column_key, $post_id) {
+	if ($column_key == 'meeting_date') {
+		$meeting_date_orig = get_post_meta($post_id, 'meeting_date', true);
+        $meeting_date = date("m/d/Y", strtotime($meeting_date_orig));  
+		if ($meeting_date) {
+			echo '<span class="meetings-date">'.$meeting_date.'</span>';
+		} else {
+			echo '-';
+		}
+	}
+}, 10, 2);
+
+/******************************************************************************
+ * Remove Publish date and featured image from meetings post list
+ ******************************************************************************/
+add_filter('manage_meetings_posts_columns',function($column_headers) {
+    unset($column_headers['date']);
+    unset($column_headers['new_post_thumb']);
+    return $column_headers;
+});
+
+/******************************************************************************
+ * Order Meetings by meeting date. front-end AND backend
+ ******************************************************************************/
+add_action( 'pre_get_posts', 'meetings_order' );
+function meetings_order( $query ) {
+    // check if we’re in admin, if not exit
+    /*if ( ! is_admin ) {
+        return;
+    }*/
+    $post_type = $query->get('post_type');
+
+    if ( $post_type == 'meetings' ) {
+        $query->set( 'meta_key', 'meeting_date' );
+        $query->set( 'orderby', 'meta_value_num' );
+        $query->set( 'order', 'DESC' );
+    }
+}
 /******************************************************************************
  * Featured User Shortcode
  ******************************************************************************/

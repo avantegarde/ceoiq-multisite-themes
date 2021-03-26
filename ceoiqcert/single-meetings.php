@@ -41,7 +41,7 @@ get_header(); ?>
                                             $meeting_loc = $meeting_location;
                                         } else {
                                             $virtual_url = $meeting_url?$meeting_url:'#';
-                                            $meeting_loc = '<a href="'.$virtual_url.'">Virtual</a>';
+                                            $meeting_loc = '<a href="'.$virtual_url.'" target="_blank">Virtual</a>';
                                         }
                                         ?>
                                         <p class="meeting-date">Date: <?php echo $meeting_date; ?></p>

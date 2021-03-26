@@ -46,7 +46,7 @@ get_header();
                                 if($meeting_type === 'local') {
                                     $meeting_loc = $meeting_location;
                                 } else {
-                                    $meeting_loc = '<a href="'.$meeting_url.'">Virtual</a>';
+                                    $meeting_loc = '<a href="'.$meeting_url.'" target="_blank">Virtual</a>';
                                 }
                                 $meeting_speaker = get_field('meeting_speaker');
                                 if($meeting_speaker) {
