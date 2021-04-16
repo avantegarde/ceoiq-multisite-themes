@@ -405,6 +405,9 @@ form.bs ul li.gfield_html.empty {
 .gform_wrapper form.center-footer .gform_footer {
   text-align: center;
 }
+form.center-submit .gform_footer {
+  text-align:center;
+}
 /* Checkboxes & Radio */
 .gform_wrapper ul.gfield_checkbox li,
 .gform_wrapper ul.gfield_radio li {
@@ -6501,4 +6504,106 @@ section#export .export-csv:nth-of-type(2) {
 #admin-invite form.oss-admin-invite .gform_button {
   margin-right: 0 !important;
   margin-left: 0 !important;
+}
+/*--- PXT Landing Page ---*/
+section.landing-features.pxt-features {
+  padding: 25px 0 100px 0 !important;
+  font-size: 18px;
+  line-height: inherit;
+}
+section.landing-features.pxt-features .section-title {
+  font-size: 36px;
+  line-height: 38px;
+  font-weight: 400;
+  margin-bottom: 30px;
+}
+section.landing-features.pxt-features .flex-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  justify-content: center;
+}
+section.landing-features.pxt-features .flex-row > div {
+  margin-bottom: 30px;
+}
+section.landing-features.pxt-features .text-wrap {
+  width: 100%;
+  padding: 0 5%;
+  text-shadow: 0 0 5px #ffffff;
+}
+section#faq .faq-answer {
+  padding-left: 30px;
+}
+section.bios img {
+  display: block;
+  width: 225px;
+  height: auto;
+  margin: auto;
+  padding: 0;
+  max-width: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid #069e24;
+}
+section.pxt-cta {
+  padding: 150px 0 !important;
+}
+section.pxt-cta .section-title {
+  font-size: 30px;
+  font-weight: 100;
+}
+section.pxt-cta p {
+  font-weight: 300;
+  margin: 20px 0;
+}
+/*--- Book Club Page ---*/
+section.landing-header.book-club-header {
+  background-image: none !important;
+}
+section.landing-features.book-club-features {
+  font-size: 18px;
+  line-height: inherit;
+}
+section.landing-features.book-club-features:before {
+  display: none;
+}
+section.landing-features.book-club-features .section-title {
+  font-size: 36px;
+  line-height: 38px;
+  font-weight: 400;
+  margin-bottom: 30px;
+}
+section.landing-features.book-club-features .flex-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  justify-content: center;
+}
+section.landing-features.book-club-features .flex-row > div {
+  margin-bottom: 30px;
+}
+section.landing-features.book-club-features .img-wrap {
+  width: auto;
+  height: auto;
+}
+section.landing-features.book-club-features .img-wrap img {
+    position: relative;
+    display: block;
+    margin: auto;
+    padding: 0;
+}
+section.landing-features.book-club-features .text-wrap {
+  width: 100%;
+  text-shadow: 0 0 5px #ffffff;
+}
+section.book-club-cta {
+  padding: 150px 0 !important;
+}
+section.book-club-cta .section-title {
+  font-size: 30px;
+  font-weight: 100;
+}
+section.book-club-cta p {
+  font-weight: 300;
+  margin: 20px 0;
 }
