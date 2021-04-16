@@ -27,8 +27,8 @@ function ferus_core_enqueue_custom_scripts() {
     //wp_enqueue_style('lightbox-css', get_template_directory_uri() . '/css/lightbox.min.css');
     wp_enqueue_style('featherlight', get_template_directory_uri() . '/css/featherlight.min.css');
     wp_enqueue_style('featherlight-gallery', get_template_directory_uri() . '/css/featherlight.gallery.min.css');
-    wp_enqueue_style('ferus-core-default-style', get_template_directory_uri() . '/css/ferus-core.css');
-    wp_enqueue_style('ferus-core-custom-style', get_template_directory_uri() . '/css/custom.css');
+    wp_enqueue_style('ferus-core-default-style', get_template_directory_uri() . '/css/ferus-core.css', array(), '1.0.2');
+    wp_enqueue_style('ferus-core-custom-style', get_template_directory_uri() . '/css/custom.css', array(), '1.0.0');
     wp_enqueue_style('animate-css', get_template_directory_uri() . '/css/animate.min.css');
     if ( is_page_template( 'page_calculator.php' ) ) {
         wp_enqueue_style('KJE', get_template_directory_uri() . '/css/KJE.css');
