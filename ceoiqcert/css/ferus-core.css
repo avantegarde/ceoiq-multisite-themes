@@ -437,7 +437,7 @@ form.bs ul li.gfield_html.empty {
   line-height: 16px;
 }
 .gform_wrapper ul.gform_fields li.gfield.gdpr-check input[type=checkbox] {
-  width: auto;
+  width: auto !important;
 }
 .gform_wrapper ul.gform_fields li.gfield.gdpr-check label {
   padding-left: 5px;
