@@ -493,6 +493,8 @@ form.line-labels .field_sublabel_below .ginput_complex.ginput_container label {
 [data-button]:visited,
 .button,
 .button:visited,
+.cn-button.button,
+.cn-button.button:visited,
 .gform_button,
 .gform_button:visited,
 input[type=submit],
