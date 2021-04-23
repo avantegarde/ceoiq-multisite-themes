@@ -95,8 +95,8 @@ function get_current_user_roles() {
     }
 }
 function remove_admin_bar() {
-    $user_role = get_current_user_roles();
-    if (current_user_can('administrator') || is_admin() || in_array('chair_member',$user_role)) {
+    //$user_role = get_current_user_roles();
+    if (current_user_can('administrator') || is_admin()) {
         show_admin_bar(true);
     } else {
         show_admin_bar(false);
@@ -106,14 +106,15 @@ function remove_admin_bar() {
  * Remove admin menus for Chair Members
  */
 function chair_member_remove_menus(){
-    $user_role = get_current_user_roles();
-    if(in_array('chair_member',$user_role)) {
+    //$user_role = get_current_user_roles();
+    if(!is_super_admin()) {
         remove_menu_page( 'index.php' );                                //Dashboard
+        remove_menu_page( 'edit.php?post_type=page' );                                //Pages
         remove_menu_page( 'edit-comments.php' );                        //Comments
         remove_menu_page( 'themes.php' );                               //Appearance
         remove_menu_page( 'plugins.php' );                              //Plugins
         remove_menu_page( 'tools.php' );                                //Tools
-        //remove_menu_page( 'users.php' );                                //Users
+        remove_menu_page( 'users.php' );                                //Users
         remove_menu_page( 'options-general.php' );                      //Settings
         remove_menu_page( 'userswp' );                                  //UsersWP
         remove_menu_page( 'edit.php?post_type=acf-field-group' );       //Custom Fields
@@ -121,6 +122,7 @@ function chair_member_remove_menus(){
         remove_menu_page( 'members' );                                  //Members
         remove_menu_page( 'cptui_main_menu' );                          //CPTUI
         remove_menu_page( 'cookie-notice' );                            //Cookie Notice
+        remove_menu_page( 'wpseo_dashboard' );                            //Yoast SEO
     }
 }
 add_action( 'admin_menu', 'chair_member_remove_menus', 999 );
@@ -146,21 +148,45 @@ function cert_remove_dashboard_widget() {
  * Remove items from the admin bar
  */
 function remove_from_admin_bar($wp_admin_bar) {
-    $user_role = get_current_user_roles();
-    if(!in_array('administrator',$user_role)) {
+    //$user_role = get_current_user_roles();
+    if(!is_super_admin()) {
         // WordPress Core Items (uncomment to remove)
+        $wp_admin_bar->remove_node('appearance');
         $wp_admin_bar->remove_node('updates');
+        $wp_admin_bar->remove_node('edit');
         $wp_admin_bar->remove_node('comments');
         $wp_admin_bar->remove_node('new-content');
         $wp_admin_bar->remove_node('search');
         $wp_admin_bar->remove_node('customize');
         $wp_admin_bar->remove_node('my-sites');
+        //$wp_admin_bar->remove_node('user-actions');
         // Plugins
         $wp_admin_bar->remove_node('breeze-topbar');
         $wp_admin_bar->remove_node('wpseo-menu');
         $wp_admin_bar->remove_node('userswp');
     }
     $wp_admin_bar->remove_node('wp-logo');
+
+    // Change toolbar account urls to go to the front-end profile url
+    $profile_url = site_url('/account');
+    if ( $wp_admin_bar->get_node( 'my-account') ) {
+        $wp_admin_bar->add_node( [
+            'id'   => 'my-account',
+            'href' => $profile_url,
+        ] );
+    }
+    if ( $wp_admin_bar->get_node( 'user-info') ) {
+        $wp_admin_bar->add_node( [
+            'id'   => 'user-info',
+            'href' => $profile_url,
+        ] );
+    }
+    if ( $wp_admin_bar->get_node( 'edit-profile') ) {
+        $wp_admin_bar->add_node( [
+            'id'   => 'edit-profile',
+            'href' => $profile_url,
+        ] );
+    }
 }
 add_action('admin_bar_menu', 'remove_from_admin_bar', 9999);
 /**
@@ -172,8 +198,8 @@ function redirect_logged_out_users() {
         wp_redirect( site_url() );
         exit;
     }
-    // Redirect front page to dashboard if logged in (non-admins)
-    if (is_front_page() && is_user_logged_in() && !current_user_can('administrator') && !is_admin()) {
+    // Redirect front page to dashboard if logged in (non-super-admins)
+    if (is_front_page() && is_user_logged_in() && !is_super_admin()) {
         wp_redirect( site_url('/dashboard') );
         exit;
     }
