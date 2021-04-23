@@ -72,32 +72,6 @@ function blockusers_init() {
     }
 }*/
 /**
- * User Role Helper Functions
- */
-if( ! function_exists( 'current_user_has_role' ) ){
-    function current_user_has_role( $role ){
-        return user_has_role_by_user_id( get_current_user_id(), $role );
-    }
-}
-if( ! function_exists( 'get_user_roles_by_user_id' ) ){
-    function get_user_roles_by_user_id( $user_id ) {
-        $user = get_userdata( $user_id );
-        return empty( $user ) ? array() : $user->roles;
-    }
-}
-if( ! function_exists( 'user_has_role_by_user_id' ) ){
-    function user_has_role_by_user_id( $user_id, $role ) {
-
-        $user_roles = get_user_roles_by_user_id( $user_id );
-
-        if( is_array( $role ) ){
-            return array_intersect( $role, $user_roles ) ? true : false;
-        }
-
-        return in_array( $role, $user_roles );
-    }
-}
-/**
  * Redirect Admin Dashboard to Wishlist Member Dashboard Page
  */
 function dashboard_redirect() {
@@ -132,7 +106,8 @@ function remove_admin_bar() {
  * Remove admin menus for Chair Members
  */
 function chair_member_remove_menus(){
-    if(current_user_has_role('chair_member')) {
+    $user_role = get_current_user_roles();
+    if(in_array('chair_member',$user_role)) {
         remove_menu_page( 'index.php' );                                //Dashboard
         remove_menu_page( 'edit-comments.php' );                        //Comments
         remove_menu_page( 'themes.php' );                               //Appearance
@@ -171,7 +146,8 @@ function cert_remove_dashboard_widget() {
  * Remove items from the admin bar
  */
 function remove_from_admin_bar($wp_admin_bar) {
-    if(!current_user_has_role('administrator')) {
+    $user_role = get_current_user_roles();
+    if(!in_array('administrator',$user_role)) {
         // WordPress Core Items (uncomment to remove)
         $wp_admin_bar->remove_node('updates');
         $wp_admin_bar->remove_node('comments');
