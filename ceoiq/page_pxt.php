@@ -80,7 +80,7 @@ get_header(); ?>
                     <p>Leadership in 2021 is more challenging than ever. The key to upping your game is improving your self-knowledge and knowing what you can do to be more effective. That’s why CEOIQ is making this special offer to Entrepreneurs, CEO’s and C-Suite Executives now.</p>
                 </div>
                 <div class="button-wrap">
-                    <a class="dll-button caps button-large" href="#" data-button="">Get Started</a>
+                    <a class="dll-button caps button-large" href="#" data-button="" data-toggle="modal" data-target="#pxt-modal">Get Started</a>
                 </div>
             </div>
 
@@ -107,7 +107,7 @@ get_header(); ?>
     <div class="container">
         <div class="row">
             <div class="col-md-12 center">
-                <h3 class="section-title">Why Attend?</h3>
+                <h3 class="section-title">Here’s How It Works</h3>
                 <!-- <h4 data-color="black">Looking to learn on your own at your own pace? <br>Hoping to host small groups for “lunch and learn” sessions that are actually valuable? </h4> -->
                 <br>
             </div>
@@ -119,7 +119,7 @@ get_header(); ?>
                 </div>
                 <div class="text-wrap">
                     <!-- <h5 class="feature-title" data-color="black"></h5> -->
-                    <p data-color="black">Complete the brief registration form on the CEOIQ Website (Nick Holliday - if this copy is in an email - a link to the landing page on the website would go here)</p>
+                    <p data-color="black">Complete the brief registration form on the CEOIQ Website</p>
                 </div>
             </div>
 
@@ -159,7 +159,7 @@ get_header(); ?>
                 </div>
                 <div class="text-wrap">
                     <!-- <h5 class="feature-title" data-color="black"></h5> -->
-                    <p data-color="black">One of CEOIQ’s certified professionals (Ben Griffin or Sara King) will conduct a confidential virtual meeting with you to explore your PXT profile and opportunities for growth and development.</p>
+                    <p data-color="black">CEOIQ’s certified professionals, Ben Griffin and Sara King, will conduct a confidential virtual debrief meeting with you to explore your PXT profile and opportunities for growth and development.</p>
                 </div>
             </div>
         </div>
@@ -204,6 +204,9 @@ get_header(); ?>
                 <li>A roadmap for your leadership growth.</li>
             </ul>
         </div>
+        <div class="col-md-12 center">
+            <img src="https://ceoiq.com/wp-content/uploads/2021/04/pxt-image4.jpg" width="750" alt="Leader teaching group">
+        </div>
         <div class="col-md-4">
             <h3>Know yourself first!</h3>
             <p>One of the great leadership challenges is spending some time being introspective...considering your approach to leading and how you can improve (and, we can all find opportunities to improve).  Using the PXT Select Assessment is a great way to build self-knowledge and create a personal ‘portal’ into growing yourself as a leader...this year and in coming years.</p>
@@ -235,7 +238,7 @@ get_header(); ?>
                 <h3>Ben Griffin</h3>
                 <p>Entrepreneur, corporate executive, facilitator, coach, consultant, photographer...Ben Griffin has followed a constantly evolving path in his personal journey of ARETE.  For the past 20 years, he has facilitated CEO Peer Advisory Group and coached many CEO’s in companies of all sizes.  In addition he is a largely self-taught photographer who chases wildlife photo ops wherever he can find them.</p>
                 <p>A great fan of that Kelly Clarkson song, “What doesn’t kill you makes you stronger,”  Ben has learned that truth through hard won personal experience. From losing a company he started in a venture capital deal that went sideways to getting fired three times from corporate positions (he says it took him awhile to realize he wasn’t the ‘best choice for an employee’) to emerging from a stint as a ‘turnaround guy’ and evolving into a facilitator and coach for entrepreneurs, he knows the title first-hand.</p>
-                <p>Ben founded CEOIQ as a digital home to the peer groups, workshops and seminars he facilitates and as a resource for leadership laboratory content developed during his career. He is a certified expert practitioner for the PXT Select assessment from Wiley International. You can check out his full bio on the CEOIQ website.</p>
+                <p>Ben founded CEOIQ as a digital home to the peer groups, workshops and seminars he facilitates and as a resource for leadership laboratory content developed during his career. He is a certified expert practitioner for the PXT Select assessment from Wiley International. You can check out his <a href="/about/ben-griffin/">full bio on the CEOIQ website</a>.</p>
             </div>
         </div>
         <br><br>
@@ -247,12 +250,19 @@ get_header(); ?>
                 <h3>Sara King</h3>
                 <p>Accomplished Human Resources professional, expert on recruiting, hiring and onboarding, inspirational youth leader, consultant, facilitator and coach.  Sara has put her M.A. in Educational Media and Instructional Design to work in many venues during her career.</p>
                 <p>She was the senior H.R. officer of a fast growing software company, overseeing an employee population that grew from 125 to over 650. During that time she worked with three different CEO’s to orchestrate five ownership changes while preserving the entrepreneurial spirit of the company.  Sara’s bedrock belief that the Human Resources function is a critical component of company growth and leadership development earned her a ‘seat at the senior leadership table’ and was the hallmark of her 21 year career.</p>
-                <p>Sara partnered with Ben at CEOIQ to create virtual and real-world content that extends her expertise and experience to leaders in all types of organizations and industries. Along the way, she earned her Expert Practitioner Certification in the PXT Select profiling assessment from Wiley International and works with CEOIQ clients to use the PXT as a recruiting, onboarding, team development and coaching tool. You can check out Sara’s complete bio on the CEOIQ website.</p>
+                <p>Sara partnered with Ben at CEOIQ to create virtual and real-world content that extends her expertise and experience to leaders in all types of organizations and industries. Along the way, she earned her Expert Practitioner Certification in the PXT Select profiling assessment from Wiley International and works with CEOIQ clients to use the PXT as a recruiting, onboarding, team development and coaching tool. You can check out Sara’s <a href="/about/sara-king/">complete bio on the CEOIQ website</a>.</p>
             </div>
         </div>
     </div>
 </section>
-<section id="testimonials" class="grey">
+<section id="pxt-logo">
+    <div class="container">
+        <div class="col-md-12 center">
+            <img src="https://ceoiq.com/wp-content/uploads/2021/04/pxt-logo.jpg" width="1000" alt="PXT Select Authorized Partner">
+        </div>
+    </div>
+</section>
+<!-- <section id="testimonials" class="grey">
     <div class="container">
         <div class="col-md-12">
             <h3 class="section-title center">Testimonials</h3><br>
@@ -281,7 +291,7 @@ get_header(); ?>
             </div>
         </div>
     </div>
-</section>
+</section> -->
 <section class="pxt-cta black parallax" data-plx-img="/wp-content/themes/ceoiq/inc/images/library-bg.jpg">
     <div class="container-fluid">
         <div class="row">
@@ -293,13 +303,24 @@ get_header(); ?>
                     <p data-color="white">Join now to begin your progress.</p>
                 </div>
                 <div class="button-wrap">
-                    <a href="#" data-button="" class="button-large" data-toggle="modal" data-target="#dllModal">GET STARTED</a>
+                    <a href="#" data-button="" class="button-large" data-toggle="modal" data-target="#pxt-modal">GET STARTED</a>
                 </div>
             </div>
 
         </div><!-- .row -->
     </div><!-- .container -->
 </section>
+<div id="pxt-modal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h3 class="section-title center">Get Started</h3>
+                <?php echo do_shortcode('[gravityform id="20" title="false" description="false" ajax="true" tabindex="999"]'); ?>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 <!-- END: CONTENT -->
 
 
