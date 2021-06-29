@@ -44,7 +44,9 @@ $user_name = $user->display_name;
                 // Upcoming Meeting
                 $upcoming_meeting = upcoming_meeting();
                 $checkin_meetings = previous_meetings(6);
-                array_unshift($checkin_meetings, $upcoming_meeting);
+                if($upcoming_meeting) {
+                  array_unshift($checkin_meetings, $upcoming_meeting);
+                }
                 // bool for showing/hiding checkin form
                 $show_form = true;
                 // get checkin form and fields
@@ -95,6 +97,10 @@ $user_name = $user->display_name;
                     $entry_month_year = date('m-Y', strtotime($entry['date_created']));
                     if ($user_name === $entry_name && $entry_checkin_date === $upcoming_meeting['meeting_date']) {
                       $show_form = false;
+                      $no_form_message = "Thanks for checking in! You've already done this so sit back and relax until it's meeting time.";
+                    } elseif (!$upcoming_meeting) {
+                      $show_form = false;
+                      $no_form_message = "There is currently no meeting scheduled. Please check back later.";
                     }
                   }
                 }// END: Get entries for each individual month
@@ -112,7 +118,7 @@ $user_name = $user->display_name;
                             <?php if($show_form) {
                               echo do_shortcode('[gravityform id="'.$formID.'" title="false" description="false" ajax="false" tabindex="99" field_values="checkin_meeting_date='.$upcoming_meeting['meeting_date'].'"]');
                             } else {
-                              echo "<p class='center'>Thanks for checking in! You've already done this so sit back and relax until it's meeting time.</p>";
+                              echo "<p class='center'>".$no_form_message."</p>";
                             } ?>
                         </div>
                         <div id="member-checkin">
