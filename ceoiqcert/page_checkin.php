@@ -41,6 +41,10 @@ $user_name = $user->display_name;
                 $current_date = new DateTime('now');
                 $current_m_y = $current_date->format('m-Y');
                 $current_month = date('F');
+                // Upcoming Meeting
+                $upcoming_meeting = upcoming_meeting();
+                $checkin_meetings = previous_meetings(6);
+                array_unshift($checkin_meetings, $upcoming_meeting);
                 // bool for showing/hiding checkin form
                 $show_form = true;
                 // get checkin form and fields
@@ -61,18 +65,19 @@ $user_name = $user->display_name;
                 }
                 // Get entries for each individual month
                 $entry_results = array();
-                foreach($entry_dates as $dates){
+                // Get entries for each individual meeting date
+                foreach($checkin_meetings as $meeting){
                   $checkin_search_criteria = array(
                       'status'        => 'active',
-                      'start_date' => $dates['1'],
-                      'end_date' => $dates['2'],
-                      /*'field_filters' => array(
+                      /*'start_date' => $dates['1'],
+                      'end_date' => $dates['2'],*/
+                      'field_filters' => array(
                           'mode' => 'all',
                           array(
-                              'key'   => '0',
-                              'value' => 'T1'
+                              'key'   => '18',
+                              'value' => $meeting['meeting_date']
                           ),
-                      )*/
+                      )
                   );
                   $sorting = null;
                   $paging = array(
@@ -86,8 +91,9 @@ $user_name = $user->display_name;
                   //check for existing entry this month
                   foreach($checkin_entries as $entry){
                     $entry_name = $entry['17'];
+                    $entry_checkin_date = $entry['18'];
                     $entry_month_year = date('m-Y', strtotime($entry['date_created']));
-                    if ($user_name === $entry_name && $entry_month_year === $current_m_y) {
+                    if ($user_name === $entry_name && $entry_checkin_date === $upcoming_meeting['meeting_date']) {
                       $show_form = false;
                     }
                   }
@@ -96,7 +102,7 @@ $user_name = $user->display_name;
 
                 <div class="tabs-wrap">
                     <ul class="tabs-menu">
-                        <li class="current"><a data-toggle="tab" href="#month-checkin"><?php echo $current_month; ?> Check-In</a></li>
+                        <li class="current"><a data-toggle="tab" href="#month-checkin">Meeting Check-In</a></li>
                         <li><a data-toggle="tab" href="#member-checkin">Check-In Results</a></li>
                         <li><a data-toggle="tab" href="#member-goals">Member Goals</a></li>
                     </ul>
@@ -104,7 +110,7 @@ $user_name = $user->display_name;
                         <div id="month-checkin" style="display:block;">
                             <h2 class="tab-title">Check-In</h2>
                             <?php if($show_form) {
-                              echo do_shortcode('[gravityform id="'.$formID.'" title="false" description="false" ajax="false" tabindex="99"]');
+                              echo do_shortcode('[gravityform id="'.$formID.'" title="false" description="false" ajax="false" tabindex="99" field_values="checkin_meeting_date='.$upcoming_meeting['meeting_date'].'"]');
                             } else {
                               echo "<p class='center'>Thanks for checking in! You've already done this so sit back and relax until it's meeting time.</p>";
                             } ?>
@@ -112,9 +118,9 @@ $user_name = $user->display_name;
                         <div id="member-checkin">
                             <h2 class="tab-title">Check-In Results</h2>
                             <div class="checkin-results-nav">
-                              <?php foreach($entry_dates as $entry_month) : ?>
+                              <?php foreach($checkin_meetings as $entry_month) : ?>
                                 <div>
-                                  <h3><?php echo $entry_month['m']; ?></h3>
+                                  <h3><?php echo $entry_month['meeting_date']; ?></h3>
                                 </div>
                               <?php endforeach; ?>
                             </div>
@@ -322,6 +328,12 @@ form .gform_footer {
 }
 .gform_wrapper .gform_footer input.gform_button {
   font-size: 125% !important;
+}
+.gform_wrapper .checkin-meeting-date input {
+  border: none;
+  color: #444444;
+  font-weight: bold;
+  pointer-events: none;
 }
 /*--- Results Slider NAV ---*/
 .checkin-results-nav {

@@ -1709,6 +1709,116 @@ function upcoming_meeting_shortcode($atts, $content = null) {
 
 add_shortcode('upcoming-meeting', 'upcoming_meeting_shortcode');
 
+/******************************************************************************
+ * Upcoming Meeting
+ ******************************************************************************/
+function upcoming_meeting() {
+    $today = date('Ymd');
+    $meeting_args = array(
+        'post_type' => 'meetings',
+        'meta_query' => array(
+            array(
+                'key' => 'meeting_date',
+                'value' => $today,
+                'compare' => '>=',
+                'type' => 'DATE'
+            )
+        ),
+        'posts_per_page' => '1',
+        'orderby' => 'meta_value',
+        'order' => 'ASC'
+    );
+    $meetings_query = new WP_Query($meeting_args);
+    if ($meetings_query->have_posts()) :
+        while ( $meetings_query->have_posts() ) : $meetings_query->the_post();
+            $meeting_date = get_field('meeting_date');
+            $meeting_start_time = get_field('meeting_start_time');
+            $meeting_end_time = get_field('meeting_end_time');
+            $meeting_type = get_field('meeting_type');
+            $meeting_url = get_field('meeting_url');
+            $meeting_location = get_field('meeting_location');
+            if($meeting_type === 'local') {
+                $meeting_loc = $meeting_location;
+                $virtual_url = null;
+            } else {
+                $virtual_url = $meeting_url?$meeting_url:'#';
+                $meeting_loc = '<a href="'.$virtual_url.'" target="_blank">Virtual</a>';
+            }
+            $meeting_speaker = get_field('meeting_speaker');
+            $meeting = array(
+                'meeting_date' => $meeting_date,
+                'meeting_start_time' => $meeting_start_time,
+                'meeting_end_time' => $meeting_end_time,
+                'meeting_type' => $meeting_type,
+                'meeting_url' => $meeting_url,
+                'meeting_location' => $meeting_location,
+                'meeting_loc' => $meeting_loc,
+                'virtual_url' => $virtual_url,
+                'meeting_speaker' => $meeting_speaker
+            );
+        endwhile; wp_reset_postdata();
+    else :
+        $meeting = null;
+    endif;
+    return $meeting;
+}
+
+/******************************************************************************
+ * Previous Meetings
+ ******************************************************************************/
+function previous_meetings($total = 1) {
+    $today = date('Ymd');
+    $meeting_args = array(
+        'post_type' => 'meetings',
+        'meta_query' => array(
+            array(
+                'key' => 'meeting_date',
+                'value' => $today,
+                'compare' => '<=',
+                'type' => 'DATE'
+            )
+        ),
+        'posts_per_page' => $total,
+        'orderby' => 'meta_value',
+        'order' => 'DESC'
+    );
+    $meetings_query = new WP_Query($meeting_args);
+    if ($meetings_query->have_posts()) :
+        $prev_meetings = array();
+        while ( $meetings_query->have_posts() ) : $meetings_query->the_post();
+            $meeting_date = get_field('meeting_date');
+            $meeting_start_time = get_field('meeting_start_time');
+            $meeting_end_time = get_field('meeting_end_time');
+            $meeting_type = get_field('meeting_type');
+            $meeting_url = get_field('meeting_url');
+            $meeting_location = get_field('meeting_location');
+            if($meeting_type === 'local') {
+                $meeting_loc = $meeting_location;
+                $virtual_url = null;
+            } else {
+                $virtual_url = $meeting_url?$meeting_url:'#';
+                $meeting_loc = '<a href="'.$virtual_url.'" target="_blank">Virtual</a>';
+            }
+            $meeting_speaker = get_field('meeting_speaker');
+            $meeting = array(
+                'meeting_date' => $meeting_date,
+                'meeting_start_time' => $meeting_start_time,
+                'meeting_end_time' => $meeting_end_time,
+                'meeting_type' => $meeting_type,
+                'meeting_url' => $meeting_url,
+                'meeting_location' => $meeting_location,
+                'meeting_loc' => $meeting_loc,
+                'virtual_url' => $virtual_url,
+                'meeting_speaker' => $meeting_speaker
+            );
+            array_push($prev_meetings, $meeting);
+        endwhile; wp_reset_postdata();
+    else :
+        $prev_meetings = null;
+    endif;
+    return $prev_meetings;
+}
+
 /**
  * Add ACF data to "meetings" post type 
  * https://support.advancedcustomfields.com/forums/topic/json-rest-api-and-acf/
