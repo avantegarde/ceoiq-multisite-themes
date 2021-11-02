@@ -92,7 +92,8 @@ $user_name = $user->display_name;
 
                   //check for existing entry this month
                   foreach($checkin_entries as $entry){
-                    $entry_name = $entry['17'];
+                    //$entry_name = $entry['17'];
+                    $entry_name = $entry['19'];
                     $entry_checkin_date = $entry['18'];
                     $entry_month_year = date('m-Y', strtotime($entry['date_created']));
                     if ($user_name === $entry_name && $entry_checkin_date === $upcoming_meeting['meeting_date']) {
@@ -367,14 +368,17 @@ form .gform_footer {
   text-align: center;
 }
 /* Entry Name */
-.checkin-results-slider .entries-slide .qid-17 {
+.checkin-results-slider .entries-slide .qid-17,
+.checkin-results-slider .entries-slide .qid-19 {
   margin-left: 0;
   border-bottom: none;
 }
-.checkin-results-slider .qid-17 h4 {
+.checkin-results-slider .qid-17 h4,
+.checkin-results-slider .qid-19 h4 {
   display: none;
 }
-.checkin-results-slider .qid-17 p {
+.checkin-results-slider .qid-17 p,
+.checkin-results-slider .qid-19 p {
   display: block;
   font-size: 24px;
   line-height: 26px;
