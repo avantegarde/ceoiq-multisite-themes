@@ -26,10 +26,10 @@ KJE.parameters.set("MSG_TITLE_SUCCESS","You may qualify for your new loan.");
 
 /**V3_CUSTOM_CODE**/
 /* <!--
-  Financial Calculators, &copy;1998-2017 KJE Computer Solutions, Inc.
+  Financial Calculators, &copy;1998-2022 KJE Computer Solutions, Inc.
   For more information please see:
-  <A HREF="http://www.dinkytown.net">http://www.dinkytown.net</A>
+  <A HREF="https://www.dinkytown.net">https://www.dinkytown.net</A>
  -->
  */
-if (KJE.IE7and8) KJE.init();
+
 
