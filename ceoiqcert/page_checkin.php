@@ -286,36 +286,42 @@ section#primary {
   }
 }
 /*--- Checkin Form ---*/
-ul.gform_fields > li > label {
-  display: block;
+ul.gform_fields > li > label,
+.gform_fields .gfield > .gfield_label {
+  display: block !important;
   width: 100%;
-  font-size: 24px;
-  line-height: 26px;
-  font-weight: bold;
+  font-size: 18px !important;
   margin: 0 0 10px 0;
-  padding: 10px;
+  padding: 10px !important;
   border: 1px solid #cccccc;
   color: #069e24;
   background: #eaeaea;
 }
-.gfield.feelings ul.gfield_radio {
+.gfield.feelings ul.gfield_radio,
+.gfield.feelings .gfield_radio {
   display: block;
   margin: 0;
   padding: 0;
 }
-.gfield.feelings ul.gfield_radio li {
+.gfield.feelings ul.gfield_radio li,
+.gfield.feelings .gfield_radio .gchoice {
   display: inline-block;
   margin: 0;
   padding: 0;
 }
-.gfield.feelings ul.gfield_radio li input {
+.gfield.feelings ul.gfield_radio li input,
+.gfield.feelings .gfield_radio .gchoice input {
   display: none;
 }
-.gfield.feelings ul.gfield_radio li label {
+.gfield.feelings ul.gfield_radio li label,
+.gfield.feelings .gfield_radio .gchoice label {
   text-align: center;
   padding: 5px;
+  max-width: 60px;
+  cursor: pointer;
 }
-.gfield.feelings ul.gfield_radio li label img {
+.gfield.feelings ul.gfield_radio li label img,
+.gfield.feelings .gfield_radio .gchoice label img {
   display: block;
   width: 100%;
   height: auto;
@@ -324,10 +330,13 @@ ul.gform_fields > li > label {
   -webkit-transition: all 0.3s ease-in-out;
 }
 .gfield.feelings ul.gfield_radio li input:checked+label img,
-.gfield.feelings ul.gfield_radio li label:hover img {
+.gfield.feelings ul.gfield_radio li label:hover img,
+.gfield.feelings .gfield_radio .gchoice input:checked+label img,
+.gfield.feelings .gfield_radio .gchoice label:hover img {
   opacity: 1;
 }
-.gfield.feelings ul.gfield_radio li label span {
+.gfield.feelings ul.gfield_radio li label span,
+.gfield.feelings .gfield_radio .gchoice label span {
   display: block;
 }
 form .gform_footer {
