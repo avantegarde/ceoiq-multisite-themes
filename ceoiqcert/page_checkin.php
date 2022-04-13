@@ -98,7 +98,7 @@ $user_name = $user->display_name;
                     $entry_month_year = date('m-Y', strtotime($entry['date_created']));
                     if ($user_name === $entry_name && $entry_checkin_date === $upcoming_meeting['meeting_date']) {
                       $show_form = false;
-                      $no_form_message = "Thanks for checking in! You've already done this so sit back and relax until it's meeting time.";
+                      $no_form_message = "Thanks for checking in! Time to sit back and relax until it's meeting time.";
                     } elseif (!$upcoming_meeting) {
                       $show_form = false;
                       $no_form_message = "There is currently no meeting scheduled. Please check back later.";
